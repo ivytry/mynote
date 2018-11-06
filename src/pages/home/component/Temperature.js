@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import * as echarts from 'echarts';
-import {delListItem} from './store/actionCreators';
 
-var data = [36.46 , 36.44 , 36.54 , 36.70, 36.55, 36.60];
+var data = [36.46 , 36.44 , 36.54 , 36.70, 36.55, 36.55, 36.60, 36.60];
 var date = ['30','31','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','1','2'];
 
 var max = Math.max.apply(null, data);
@@ -69,10 +67,7 @@ const buldChart = (el) => {
 	myChart.setOption(option);
 }
 
-class App extends Component {
-	constructor(){
-        super();
-    }
+class Temperature extends Component {
 	render(){
 		const style = {width:'900px', height:'500px', padding:'15px'}
 		return (
@@ -84,4 +79,4 @@ class App extends Component {
 	}
 }
 
-export default App
+export default Temperature

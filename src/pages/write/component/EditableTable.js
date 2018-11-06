@@ -2,17 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from '../store';
 import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
-
-const data = [];
-
-for (let i = 0; i < 50; i++) {
-  data.push({
-    key: i.toString(),
-    type: `早餐`,
-    time: '12:58-13:49',
-    things: `火腿烧饼+小咸菜+蛋糕+玉米面糊+豆浆${i}`,
-  });
-}
+require('antd/dist/antd.css');
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -72,7 +62,6 @@ class EditableCell extends PureComponent {
 class EditableTable extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { data, editingKey: '' };
     this.columns = [
       {
         title: '时间',
@@ -136,12 +125,8 @@ class EditableTable extends PureComponent {
   }
 
   isEditing = (record) => {
-    return record.key === this.state.editingKey;
+    return record.key === this.props.editingKey;
   };
-
-  edit(key) {
-    this.setState({ editingKey: key });
-  }
 
   save(form, key) {
     form.validateFields((error, row) => {
@@ -149,7 +134,7 @@ class EditableTable extends PureComponent {
       	console.log(error)
         return;
       }
-      const newData = [...this.state.data];
+      const newData = [...this.props.daynote];
       const index = newData.findIndex(item => key === item.key);
       if (index > -1) {
         const item = newData[index];
@@ -157,17 +142,13 @@ class EditableTable extends PureComponent {
           ...item,
           ...row,
         });
-        this.setState({ data: newData, editingKey: '' });
+        this.props.setData(newData, '');
       } else {
         newData.push(row);
-        this.setState({ data: newData, editingKey: '' });
+        this.props.setData(newData, '');
       }
     });
   }
-
-  cancel = () => {
-    this.setState({ editingKey: '' });
-  };
 
   render() {
     const components = {
@@ -197,24 +178,38 @@ class EditableTable extends PureComponent {
       <Table
         components={components}
         bordered
-        dataSource={this.state.data}
+        dataSource={this.props.daynote}
         columns={columns}
         rowClassName="editable-row"
       />
     );
   }
+
+  didComponent() {
+    var d = new Date()
+    this.props.initialData(d.toLocaleDateString())
+  }
 }
 
 const mapState = (state) => ({
-	list: state.get("home").get("articleList"),
-	currentPage: state.get("home").get("currentPage")
+  daynote: state.get("write").get("daynote"),
+  editingKey: state.get("write").get("editingKey")
 })
 
 const mapDispatch = (dispatch) => {
 	return {
-		handleAddMoreArticle: (currentPage) => {
-			dispatch(actionCreator.getMoreArticle(currentPage))
-		}
+		initialData: (m) => {
+			dispatch(actionCreator.getDayThings(m))
+		},
+    edit: (key) => {
+      dispatch(actionCreator.setEditingKey(key))
+    },
+    cancel: () => {
+      dispatch(actionCreator.setEditingKey(''))
+    },
+    setData: (d, k) => {
+      dispatch(actionCreator.handleSetData(d,k))
+    }
 	}
 }
 

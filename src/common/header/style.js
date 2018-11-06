@@ -194,6 +194,7 @@ export const Button = styled.button`
 	&.reg{
 		a{
 			color:#ea6f5a;
+			text-decoration:none;
 		}
 		background-color: transparent;
 		:hover{
@@ -204,6 +205,7 @@ export const Button = styled.button`
 	&.writing{
 		a{
 			color:#fff;
+			text-decoration:none;
 		}
 		color:#fff;
 		background-color: #ea6f5a;

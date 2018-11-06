@@ -1,29 +1,30 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
-import { LoginWrapper, LoginBox } from './style';
 import { connect } from 'react-redux';
-import EditableTable from './component/EditableTable';
 import { actionCreator } from './store';
-import { Input, Calendar } from 'antd';
-
-function onSelect(value) {
-  console.log(value)
-}
+import EditableTable from './component/EditableTable';
+import { Calendar } from 'antd';
+import { LoginWrapper, LoginBox } from './style';
 
 function backToToday() {
 	console.log("回到今天")
 }
 
-class Login extends PureComponent{
+class Write extends PureComponent{
 	render(){
 		if(!this.props.login) {
 			return (
 				<LoginWrapper>
 					<LoginBox>
+						<h4>
+							<div>
+								<a className="active" href="/login">日记</a>
+							</div>
+						</h4>
 						<div>
 							<div className="calendar">
 								<span className="ant-select-selection today" onClick={backToToday}>今天</span>
-								<Calendar fullscreen={false} onSelect={onSelect} />
+								<Calendar fullscreen={false} onSelect={this.props.handleSelect} />
 							</div>
 							<EditableTable />
 						</div>
@@ -37,13 +38,13 @@ class Login extends PureComponent{
 }
 
 const mapState = (state) => ({
-	login: state.get("login").get("login")
+	write: state.get("write").get("write")
 })
 
 const mapDispatch = (dispatch) => ({
-	handleLogin: (account, password) => {
-		dispatch(actionCreator.logIn(account, password))
+	handleSelect: (m) => {
+		dispatch(actionCreator.getDayThings(m))
 	}
 })
 
-export default connect(mapState, mapDispatch)(Login)
+export default connect(mapState, mapDispatch)(Write)

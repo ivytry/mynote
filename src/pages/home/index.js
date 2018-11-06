@@ -1,28 +1,14 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from './store';
-import Banner from './component/Banner';
-import Topic from './component/Topic';
-import Article from './component/Article';
-import Recommend from './component/Recommend';
-import Erma from './component/Erma';
-import Author from './component/Author';
-import { HomeWrapper, HomeLeft, HomeRight, BackTop, HomeFoot }from './style';
+import Temperature from './component/Temperature';
+import { HomeWrapper, BackTop, HomeFoot }from './style';
 
 class Home extends PureComponent{
 	render(){
 		return (
 			<HomeWrapper>
-				<HomeLeft>
-					<Banner />
-					<Topic />
-					<Article />
-				</HomeLeft>
-				<HomeRight>
-					<Recommend />
-					<Erma />
-					<Author />
-				</HomeRight>
+				<Temperature />
 				<HomeFoot>
 					<div className="main">
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/c/jppzD2">关于简书</a><em> · </em>
@@ -34,20 +20,11 @@ class Home extends PureComponent{
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/p/cabc8fa39830">合作伙伴</a>      
 						<div className="icp">
 							<div>
-						        ©2012-2018 上海佰集信息科技有限公司 / 简书 / 沪ICP备11018329号-5 / 
-						        <a target="_blank" rel="noopener noreferrer" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402002252">
-						          <img src="//cdn2.jianshu.io/assets/web/smrz-557fa318122c99a66523209bf9753a27.png" alt="Smrz" />
-								</a>      
+						        ©2018-2088 重庆树懒责任有限公司 / 树懒 / 渝ICP备1314520号-8     
 							</div>
 							<div>
-								<a target="_blank" rel="noopener noreferrer" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402002252">沪公网安备31010402002252号 / </a>
-						        <a target="_blank" rel="noopener noreferrer" href="http://www.shjbzx.cn/">
-						          <img src="//cdn2.jianshu.io/assets/web/wxb-a216456895eb66c17497dbd3da443cf8.png" alt="Wxb" />
-								</a>  
-								举报电话：021-34770013 / 
-						        <a target="_blank" rel="noopener noreferrer" href="http://218.242.124.22:8081/businessCheck/verifKey.do?showType=extShow&amp;serial=9031000020171107081457000002158769-SAIC_SHOW_310000-20171115131223587837&amp;signData=MEQCIADWZ5aTcBeER5SOVp0ly+ElvKnwtjczum6Gi6wZ7/wWAiB9MAPM22hp947ZaBobux5PDkd0lfqoCOkVV7zjCYME6g==">
-						          <img src="//cdn2.jianshu.io/assets/web/zggsrz-5695587dccf490ca3e651f4228f7479e.png" alt="Zggsrz" />
-								</a>    
+								<a target="_blank" rel="noopener noreferrer" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402002252">渝公网安备131452088888号 / </a> 
+								&nbsp; 举报电话：021-34770013  
 							</div>   
 						</div>
 					</div>

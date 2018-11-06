@@ -294,8 +294,8 @@ export const HomeFoot = styled.div`
     		a{
     			color: #c8c8c8;
     		}
-    		img{
-    			height: 30px;
+    		div{
+    			padding: 10px 0 0;
     		}
 		}
 	}

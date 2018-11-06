@@ -1,2 +1,1 @@
-export const LOGIN = 'login/LOGIN';
-export const LOGOUT = 'login/LOGOUT';
+export const GET_DAYNOTE = 'write/GET_DAYNOTE';

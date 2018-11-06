@@ -1,23 +1,18 @@
 import axios from 'axios';
 import * as actionType from './actionType';
 
-const login = (data) => ({
-	type: actionType.LOGIN,
-	login: data
+const getDayNote = (data) => ({
+	type: actionType.GET_DAYNOTE,
+	daynote: data
 })
 
-export const logIn = (account, password) => {
+export const getDayThings = (d) => {
 	return (dispatch) => {
-		axios.get("/api/login.json?account="+account+"&password="+password).then((res) => {
+		axios.get("/api/daynote.json?date="+d).then((res) => {
 			const result = res.data.data;
-			dispatch(login((account === result.account && result.password === password) ? true : false))
+			dispatch(getDayNote(result))
 		}).catch((err) => {
 			console.log(err)
 		})
 	}
 }
-
-export const logout = () => ({
-	type: actionType.LOGOUT,
-	login: false
-})
