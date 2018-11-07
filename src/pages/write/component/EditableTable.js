@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from '../store';
-import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, TimePicker, Dropdown } from 'antd';
+import moment from 'moment';
 require('antd/dist/antd.css');
 
 const FormItem = Form.Item;
@@ -17,9 +18,11 @@ const EditableFormRow = Form.create()(EditableRow);
 
 class EditableCell extends PureComponent {
   getInput = () => {
-    console.log(this.props.inputType)
     if (this.props.inputType === 'number') {
       return <InputNumber />;
+    }
+    if(this.props.inputType === 'time'){
+      return <TimePicker format='HH:mm' />
     }
     return <Input />;
   };
@@ -34,6 +37,7 @@ class EditableCell extends PureComponent {
       index,
       ...restProps
     } = this.props;
+
     return (
       <EditableContext.Consumer>
         {(form) => {
@@ -45,7 +49,7 @@ class EditableCell extends PureComponent {
                   {getFieldDecorator(dataIndex, {
                     rules: [{
                       required: true,
-                      message: `Please Input ${title}!`,
+                      message: `请输入 ${title}!`,
                     }],
                     initialValue: record[dataIndex],
                   })(this.getInput())}
@@ -78,7 +82,7 @@ class EditableTable extends PureComponent {
       {
         title: '内容',
         dataIndex: 'things',
-        width: '42%',
+        width: '46%',
         editable: true,
       },
       {
@@ -99,7 +103,6 @@ class EditableTable extends PureComponent {
                   <EditableContext.Consumer>
                     {form => (
                       <a
-                        href=""
                         onClick={() => this.save(form, record.key)}
                         style={{ marginRight: 8 }}
                       >
@@ -109,13 +112,13 @@ class EditableTable extends PureComponent {
                   </EditableContext.Consumer>
                   <Popconfirm
                     title="确定要取消吗?"
-                    onConfirm={() => this.cancel(record.key)}
+                    onConfirm={() => this.props.setData(this.props.daynote, '')}
                   >
                     <a>取消</a>
                   </Popconfirm>
                 </span>
               ) : (
-                <a onClick={() => this.edit(record.key)}>编辑</a>
+                <a onClick={() => this.props.setData(this.props.daynote, record.key)}>编辑</a>
               )}
             </div>
           );
@@ -166,7 +169,7 @@ class EditableTable extends PureComponent {
         ...col,
         onCell: record => ({
           record,
-          inputType: col.dataIndex === 'age' ? 'number' : 'text',
+          inputType: col.dataIndex === 'time' ? 'time' : 'text',
           dataIndex: col.dataIndex,
           title: col.title,
           editing: this.isEditing(record),
@@ -179,34 +182,33 @@ class EditableTable extends PureComponent {
         components={components}
         bordered
         dataSource={this.props.daynote}
+        loading={this.props.loading}
         columns={columns}
         rowClassName="editable-row"
       />
     );
   }
 
-  didComponent() {
+  componentDidMount() {
     var d = new Date()
+
     this.props.initialData(d.toLocaleDateString())
   }
 }
 
-const mapState = (state) => ({
-  daynote: state.get("write").get("daynote"),
-  editingKey: state.get("write").get("editingKey")
-})
+const mapState = (state) => {
+  return {
+    daynote: state.get("write").daynote,
+    editingKey: state.get("write").editingKey,
+    loading: state.get("write").loading
+  }
+}
 
 const mapDispatch = (dispatch) => {
 	return {
 		initialData: (m) => {
 			dispatch(actionCreator.getDayThings(m))
 		},
-    edit: (key) => {
-      dispatch(actionCreator.setEditingKey(key))
-    },
-    cancel: () => {
-      dispatch(actionCreator.setEditingKey(''))
-    },
     setData: (d, k) => {
       dispatch(actionCreator.handleSetData(d,k))
     }

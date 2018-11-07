@@ -45,7 +45,7 @@ class Header extends PureComponent {
 					</Link>
 					<Nav>
 						<NavItem className="left active"><a href="/">首页</a></NavItem>
-						<NavItem className="left">下载App</NavItem>
+						<NavItem className="left">事记</NavItem>
 						{login ? <NavItem className="right" onClick={handleLogout}>退出</NavItem> : <Link to="/login"><NavItem className="right">登录</NavItem></Link>}
 						<NavItem className="right">
 							<i className="iconfont">&#xe636;</i>
@@ -66,7 +66,7 @@ class Header extends PureComponent {
 						</SearchWrapper>
 						<Addition>
 							<Button className="reg"><a href="/reg">注册</a></Button>
-							<Button className="writing"><i className="iconfont">&#xe615;</i><a href="/write">写日记</a></Button>
+							<Button className="writing"><i className="iconfont">&#xe615;</i><a href="/write">写事记</a></Button>
 						</Addition>
 					</Nav>
 				</HeaderInner>

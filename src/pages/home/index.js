@@ -11,10 +11,10 @@ class Home extends PureComponent{
 				<Temperature />
 				<HomeFoot>
 					<div className="main">
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/c/jppzD2">关于简书</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/c/jppzD2">关于树懒</a><em> · </em>
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/contact">联系我们</a><em> · </em>
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/c/bfeec2e13990">加入我们</a><em> · </em>
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/p/fc1c113e5b6b">简书出版</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/p/fc1c113e5b6b">树懒出版</a><em> · </em>
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/press">品牌与徽标</a><em> · </em>
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/faqs">帮助中心</a><em> · </em>
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/p/cabc8fa39830">合作伙伴</a>      
@@ -39,7 +39,6 @@ class Home extends PureComponent{
 	}
 
 	componentDidMount(){
-		this.props.handleGetInitData()
 		this.addEvents()
 	}
 	
@@ -54,9 +53,6 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => {
 	return {
-		handleGetInitData: () => {
-			dispatch(actionCreator.getInitHomeData())
-		},
 		handleBackTop: (e) => {
 			dispatch(actionCreator.showBackTopBtn((document.body.scrollTop > 400) ? true : false))
 		}
