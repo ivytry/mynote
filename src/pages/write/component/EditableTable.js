@@ -5,6 +5,7 @@ import { Table, Input, InputNumber, Popconfirm, Form, TimePicker, Dropdown } fro
 import moment from 'moment';
 require('antd/dist/antd.css');
 
+const format = 'HH:mm';
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
 
@@ -21,7 +22,7 @@ class EditableCell extends PureComponent {
     if (this.props.inputType === 'number') {
       return <InputNumber />;
     }
-    if(this.props.inputType === 'time'){
+    if(this.props.inputType === 'stime'){
       return <TimePicker format='HH:mm' />
     }
     return <Input />;
@@ -37,24 +38,25 @@ class EditableCell extends PureComponent {
       index,
       ...restProps
     } = this.props;
-
     return (
       <EditableContext.Consumer>
         {(form) => {
           const { getFieldDecorator } = form;
           return (
             <td {...restProps}>
-              {editing ? (
-                <FormItem style={{ margin: 0 }}>
-                  {getFieldDecorator(dataIndex, {
-                    rules: [{
-                      required: true,
-                      message: `请输入 ${title}!`,
-                    }],
-                    initialValue: record[dataIndex],
-                  })(this.getInput())}
-                </FormItem>
-              ) : restProps.children}
+              {
+                editing ? (
+                  <FormItem style={{ margin: 0 }}>
+                    {
+                      getFieldDecorator(dataIndex, {
+                        initialValue: record[dataIndex]
+                      })(this.getInput())
+                    }
+                  </FormItem>
+                ) : (
+                  restProps.children[2] === null ? record[dataIndex].format("HH:mm") : restProps.children
+                )
+              }
             </td>
           );
         }}
@@ -69,7 +71,7 @@ class EditableTable extends PureComponent {
     this.columns = [
       {
         title: '时间',
-        dataIndex: 'time',
+        dataIndex: 'stime',
         width: '15%',
         editable: true,
       },
@@ -169,14 +171,13 @@ class EditableTable extends PureComponent {
         ...col,
         onCell: record => ({
           record,
-          inputType: col.dataIndex === 'time' ? 'time' : 'text',
+          inputType: col.dataIndex === 'stime' ? 'stime' : 'text',
           dataIndex: col.dataIndex,
           title: col.title,
           editing: this.isEditing(record),
         }),
       };
     });
-
     return (
       <Table
         components={components}
@@ -191,14 +192,17 @@ class EditableTable extends PureComponent {
 
   componentDidMount() {
     var d = new Date()
-
     this.props.initialData(d.toLocaleDateString())
   }
 }
 
 const mapState = (state) => {
+  var daynote = state.get("write").daynote;
+  daynote.map((item, index) => {
+    item.stime = moment(item.stime, format)
+  })
   return {
-    daynote: state.get("write").daynote,
+    daynote: daynote,
     editingKey: state.get("write").editingKey,
     loading: state.get("write").loading
   }

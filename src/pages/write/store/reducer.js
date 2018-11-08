@@ -5,49 +5,49 @@ const defaultState = {
 	daynote: [{
 		"key": 1,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	},{
 		"key": 2,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	},{
 		"key": 3,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	},{
 		"key": 4,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	},{
 		"key": 5,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	},{
 		"key": 6,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	},{
 		"key": 7,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	},{
 		"key": 8,
     	"type": "",
-    	"time": "",
+    	"stime": "",
     	"things": "",
 	    "remark": ""
 	}],
