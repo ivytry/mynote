@@ -1,4 +1,3 @@
-import { fromJS } from 'immutable';
 import * as actionType from './actionType';
 
 const defaultState = {
@@ -6,50 +5,8 @@ const defaultState = {
 		"key": 1,
     	"type": "",
     	"stime": "",
-    	"things": "",
-	    "remark": ""
-	},{
-		"key": 2,
-    	"type": "",
-    	"stime": "",
-    	"things": "",
-	    "remark": ""
-	},{
-		"key": 3,
-    	"type": "",
-    	"stime": "",
-    	"things": "",
-	    "remark": ""
-	},{
-		"key": 4,
-    	"type": "",
-    	"stime": "",
-    	"things": "",
-	    "remark": ""
-	},{
-		"key": 5,
-    	"type": "",
-    	"stime": "",
-    	"things": "",
-	    "remark": ""
-	},{
-		"key": 6,
-    	"type": "",
-    	"stime": "",
-    	"things": "",
-	    "remark": ""
-	},{
-		"key": 7,
-    	"type": "",
-    	"stime": "",
-    	"things": "",
-	    "remark": ""
-	},{
-		"key": 8,
-    	"type": "",
-    	"stime": "",
-    	"things": "",
-	    "remark": ""
+	    "etime": "",
+    	"things": ""
 	}],
 	editingKey: '',
 	loading: false

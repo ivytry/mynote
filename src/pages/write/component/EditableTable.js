@@ -1,13 +1,23 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from '../store';
-import { Table, Input, InputNumber, Popconfirm, Form, TimePicker, Dropdown } from 'antd';
+import { Table, Input, Popconfirm, Form, TimePicker, Dropdown, Menu, Icon, Divider } from 'antd';
 import moment from 'moment';
 require('antd/dist/antd.css');
 
 const format = 'HH:mm';
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
+const menu = (
+  <Menu>
+    <Menu.Item>
+      早餐
+    </Menu.Item>
+    <Menu.Item>
+      午餐
+    </Menu.Item>
+  </Menu>
+);
 
 const EditableRow = ({ form, index, ...props }) => (
   <EditableContext.Provider value={form}>
@@ -19,11 +29,15 @@ const EditableFormRow = Form.create()(EditableRow);
 
 class EditableCell extends PureComponent {
   getInput = () => {
-    if (this.props.inputType === 'number') {
-      return <InputNumber />;
-    }
     if(this.props.inputType === 'stime'){
       return <TimePicker format='HH:mm' />
+    }
+    if(this.props.inputType === 'type'){
+      return (
+        <Dropdown overlay={menu}>
+          <a>ds <Icon type="down" /></a>
+        </Dropdown>
+      )
     }
     return <Input />;
   };
@@ -70,16 +84,22 @@ class EditableTable extends PureComponent {
     super(props);
     this.columns = [
       {
-        title: '时间',
+        title: '开始时间',
         dataIndex: 'stime',
-        width: '15%',
+        width: '8%',
+        editable: true,
+      },
+      {
+        title: '结束时间',
+        dataIndex: 'etime',
+        width: '8%',
         editable: true,
       },
       {
         title: '事件',
         dataIndex: 'type',
-        width: '10%',
-        editable: true,
+        width: '6%',
+        editable: true
       },
       {
         title: '内容',
@@ -88,40 +108,48 @@ class EditableTable extends PureComponent {
         editable: true,
       },
       {
-        title: '备注',
-        dataIndex: 'remark',
-        width: '18%',
-        editable: true,
-      },
-      {
         title: '操作',
         dataIndex: 'operation',
+        width: '10%',
         render: (text, record) => {
           const editable = this.isEditing(record);
           return (
             <div>
-              {editable ? (
-                <span>
-                  <EditableContext.Consumer>
-                    {form => (
-                      <a
-                        onClick={() => this.save(form, record.key)}
-                        style={{ marginRight: 8 }}
-                      >
-                        保存
-                      </a>
-                    )}
-                  </EditableContext.Consumer>
-                  <Popconfirm
-                    title="确定要取消吗?"
-                    onConfirm={() => this.props.setData(this.props.daynote, '')}
-                  >
-                    <a>取消</a>
-                  </Popconfirm>
-                </span>
-              ) : (
-                <a onClick={() => this.props.setData(this.props.daynote, record.key)}>编辑</a>
-              )}
+              <span>
+                {editable ? (
+                  <span>
+                    <EditableContext.Consumer>
+                      {form => (
+                        <a
+                          onClick={() => this.save(form, record.key)}
+                          style={{ marginRight: 8 }}
+                        >
+                          保存
+                        </a>
+                      )}
+                    </EditableContext.Consumer>
+                    <Popconfirm
+                      title="确定要取消吗?"
+                      onConfirm={() => this.props.setData(this.props.daynote, '')}
+                    >
+                      <a>取消</a>
+                    </Popconfirm>
+                  </span>
+                ) : (
+                  <a onClick={() => this.props.setData(this.props.daynote, record.key)}>编辑</a>
+                )}
+              </span>
+              <Divider type="vertical" />
+              <span>
+                {
+                  this.props.daynote.length >= 1
+                  ? (
+                    <Popconfirm title="确定要删除吗?" onConfirm={() => this.props.handleDelete(this.props.daynote, record.key)}>
+                      <a href="javascript:;">删除</a>
+                    </Popconfirm>
+                  ) : null
+                }
+              </span>
             </div>
           );
         },
@@ -167,11 +195,18 @@ class EditableTable extends PureComponent {
       if (!col.editable) {
         return col;
       }
+      let type = 'text';
+      if(col.dataIndex === 'stime' || col.dataIndex === 'etime'){
+        type = 'stime'
+      }
+      if(col.dataIndex === 'type'){
+        type = 'type'
+      }
       return {
         ...col,
         onCell: record => ({
           record,
-          inputType: col.dataIndex === 'stime' ? 'stime' : 'text',
+          inputType: type,
           dataIndex: col.dataIndex,
           title: col.title,
           editing: this.isEditing(record),
@@ -196,13 +231,30 @@ class EditableTable extends PureComponent {
   }
 }
 
-const mapState = (state) => {
+function pakeDaynote(state){
   var daynote = state.get("write").daynote;
+  console.log(daynote)
   daynote.map((item, index) => {
-    item.stime = moment(item.stime, format)
+    item.stime = moment((item.stime ? item.stime : moment()), format)
+    item.etime = moment((item.etime ? item.etime : moment()), format)
   })
+  const last = daynote[daynote.length-1];
+  if(!(last.type === "" && last.things === "")){
+    daynote.push({
+      "key": daynote.length+1,
+        "type": "",
+        "stime": "",
+        "etime": "",
+        "things": "",
+        "remark": ""
+    })
+  }
+  return daynote
+}
+
+const mapState = (state) => {
   return {
-    daynote: daynote,
+    daynote: pakeDaynote(state),
     editingKey: state.get("write").editingKey,
     loading: state.get("write").loading
   }
@@ -214,6 +266,15 @@ const mapDispatch = (dispatch) => {
 			dispatch(actionCreator.getDayThings(m))
 		},
     setData: (d, k) => {
+      dispatch(actionCreator.handleSetData(d,k))
+    },
+    handleDelete: (d, k) => {
+      d.map((item, index) => {
+        if(item.key === k){
+          d.splice(index,1)
+          return
+        }
+      })
       dispatch(actionCreator.handleSetData(d,k))
     }
 	}
