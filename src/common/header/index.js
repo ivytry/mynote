@@ -4,35 +4,25 @@ import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
 import { actionCreator as loginActionCreators } from '../../pages/login/store';
-import { HeaderWrapper, HeaderInner, Logo, Nav, NavItem, SearchWrapper, SearchInfo, SearchTitle, SearchTitleName, SearchTitleInfo, SearchInfoList, SearchInfoItem, NavSearch, Addition, Button } from './style';
+import axios from 'axios';
+import { HeaderWrapper, HeaderInner, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style';
 
 class Header extends PureComponent {
-	searchInfo(){
-		const { focused, list, pageSize, currentPage, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleSwitchPage } = this.props
-		const JSlist = list.toJS()
-		const currentList = []
-
-		if(JSlist.length){
-			for(let i=(currentPage-1)*pageSize; i<currentPage*pageSize; i++){
-				currentList.push(<SearchInfoItem key={i}>{JSlist[i]}</SearchInfoItem>)
-			}
-		}
-		
-		if(focused || mouseIn){
-			return (
-				<SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-					<SearchTitle>
-						<SearchTitleName>热门搜索</SearchTitleName>
-						<SearchTitleInfo onClick={() => {handleSwitchPage(currentPage, totalPage, this.icon)}}>
-							<i ref={(e)=>{this.icon = e}} className="iconfont">&#xe790;</i>换一批
-						</SearchTitleInfo>
-					</SearchTitle>
-					<SearchInfoList>
-						{ currentList }
-					</SearchInfoList>
-				</SearchInfo>
-			)
-		}
+	getWeather(){
+		/*var instance = axios.create({
+		  	baseURL: 'http://www.tianqi.com/',
+		  	timeout: 1000,
+		  	headers: {'X-Custom-Header': 'foobar'}
+		});
+		instance.get('/longRequest', {
+		  	timeout: 5000
+		});*/
+		axios.get("http://www.weather.com.cn/html/weather/101010900.shtml?from=cn", {
+			timeout: 5000,
+			headers: {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
+		}).then((res) => {
+			console.log(res)
+		})
 	}
 	
 	render(){
@@ -46,24 +36,15 @@ class Header extends PureComponent {
 					<Nav>
 						<NavItem className="left active"><a href="/">首页</a></NavItem>
 						<NavItem className="left">事记</NavItem>
+						<NavItem className="left">笔记</NavItem>
+						<NavItem className="left">日记</NavItem>
+						<NavItem className="left">财务</NavItem>
+						<NavItem className="left">账务</NavItem>
 						{login ? <NavItem className="right" onClick={handleLogout}>退出</NavItem> : <Link to="/login"><NavItem className="right">登录</NavItem></Link>}
 						<NavItem className="right">
 							<i className="iconfont">&#xe636;</i>
+							{this.getWeather()}
 						</NavItem>
-						<SearchWrapper>
-							<CSSTransition 
-								in={focused} 
-								timeout={200} 
-								classNames="slide" 
-							>
-								<NavSearch 
-									onFocus={()=>{handleFocus(list)}} 
-									onBlur={handleBlur}
-								></NavSearch>
-							</CSSTransition>
-							<i className={focused ? "iconfont focused" : "iconfont"}>&#xe623;</i>
-							{ this.searchInfo(focused) }
-						</SearchWrapper>
 						<Addition>
 							<Button className="reg"><a href="/reg">注册</a></Button>
 							<Button className="writing"><i className="iconfont">&#xe615;</i><a href="/write">写事记</a></Button>

@@ -1,23 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from '../store';
-import { Table, Input, Popconfirm, Form, TimePicker, Dropdown, Menu, Icon, Divider } from 'antd';
+import { Table, Input, Popconfirm, Form, TimePicker, Divider } from 'antd';
 import moment from 'moment';
 require('antd/dist/antd.css');
 
 const format = 'HH:mm';
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
-const menu = (
-  <Menu>
-    <Menu.Item>
-      早餐
-    </Menu.Item>
-    <Menu.Item>
-      午餐
-    </Menu.Item>
-  </Menu>
-);
 
 const EditableRow = ({ form, index, ...props }) => (
   <EditableContext.Provider value={form}>
@@ -32,14 +22,7 @@ class EditableCell extends PureComponent {
     if(this.props.inputType === 'stime'){
       return <TimePicker format='HH:mm' />
     }
-    if(this.props.inputType === 'type'){
-      return (
-        <Dropdown overlay={menu}>
-          <a>ds <Icon type="down" /></a>
-        </Dropdown>
-      )
-    }
-    return <Input />;
+    return <Input style={{'width':'100px'}} />;
   };
 
   render() {
@@ -98,19 +81,19 @@ class EditableTable extends PureComponent {
       {
         title: '事件',
         dataIndex: 'type',
-        width: '6%',
+        width: '8%',
         editable: true
       },
       {
         title: '内容',
         dataIndex: 'things',
-        width: '46%',
+        width: '',
         editable: true,
       },
       {
         title: '操作',
         dataIndex: 'operation',
-        width: '10%',
+        width: '13%',
         render: (text, record) => {
           const editable = this.isEditing(record);
           return (
@@ -142,7 +125,7 @@ class EditableTable extends PureComponent {
               <Divider type="vertical" />
               <span>
                 {
-                  this.props.daynote.length >= 1
+                  (this.props.daynote.length > 1 && (this.props.daynote.type || this.props.daynote.things))
                   ? (
                     <Popconfirm title="确定要删除吗?" onConfirm={() => this.props.handleDelete(this.props.daynote, record.key)}>
                       <a href="javascript:;">删除</a>
