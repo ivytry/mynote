@@ -4,13 +4,15 @@ import { reducer as homeReducer } from '../pages/home/store';
 import { reducer as detailReducer } from '../pages/detail/store';
 import { reducer as loginReducer } from '../pages/login/store';
 import { reducer as WriteReducer } from '../pages/write/store';
+import { reducer as DiaryReducer } from '../pages/diary/store';
 
 const reducer = combineReducers({
 	header: headerReducer,
 	home: homeReducer,
 	detail: detailReducer,
 	login: loginReducer,
-	write: WriteReducer
+	write: WriteReducer,
+	diary: DiaryReducer
 })
 
 export default reducer

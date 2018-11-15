@@ -4,39 +4,13 @@ import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
 import { actionCreator as loginActionCreators } from '../../pages/login/store';
-import { HeaderWrapper, HeaderInner, Logo, Nav, NavItem, SearchWrapper, SearchInfo, SearchTitle, SearchTitleName, SearchTitleInfo, SearchInfoList, SearchInfoItem, NavSearch, Addition, Button } from './style';
+import axios from 'axios';
+import { HeaderWrapper, HeaderInner, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style';
 
 class Header extends PureComponent {
-	searchInfo(){
-		const { focused, list, pageSize, currentPage, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleSwitchPage } = this.props
-		const JSlist = list.toJS()
-		const currentList = []
-
-		if(JSlist.length){
-			for(let i=(currentPage-1)*pageSize; i<currentPage*pageSize; i++){
-				currentList.push(<SearchInfoItem key={i}>{JSlist[i]}</SearchInfoItem>)
-			}
-		}
-		
-		if(focused || mouseIn){
-			return (
-				<SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-					<SearchTitle>
-						<SearchTitleName>热门搜索</SearchTitleName>
-						<SearchTitleInfo onClick={() => {handleSwitchPage(currentPage, totalPage, this.icon)}}>
-							<i ref={(e)=>{this.icon = e}} className="iconfont">&#xe790;</i>换一批
-						</SearchTitleInfo>
-					</SearchTitle>
-					<SearchInfoList>
-						{ currentList }
-					</SearchInfoList>
-				</SearchInfo>
-			)
-		}
-	}
 	
 	render(){
-		const { login, focused, list, handleFocus, handleBlur, handleLogout } = this.props
+		const { login, focused, list, handleFocus, handleBlur, handleLogout, nav, activeNav, handleChangeNav } = this.props
 		return (
 			<HeaderWrapper>
 				<HeaderInner>
@@ -44,26 +18,19 @@ class Header extends PureComponent {
 						<Logo />
 					</Link>
 					<Nav>
-						<NavItem className="left active"><a href="/">首页</a></NavItem>
-						<NavItem className="left">事记</NavItem>
+						{
+							nav.map((item, index) => {
+								let cln = "left";
+								if(activeNav === index){
+									cln = "left active";
+								}
+								return <NavItem key={index} className={cln}><a href={"/"+item.get("url")} onClick={(index) => { handleChangeNav(index) }}>{item.get("name")}</a></NavItem>
+							})
+						}
 						{login ? <NavItem className="right" onClick={handleLogout}>退出</NavItem> : <Link to="/login"><NavItem className="right">登录</NavItem></Link>}
 						<NavItem className="right">
 							<i className="iconfont">&#xe636;</i>
 						</NavItem>
-						<SearchWrapper>
-							<CSSTransition 
-								in={focused} 
-								timeout={200} 
-								classNames="slide" 
-							>
-								<NavSearch 
-									onFocus={()=>{handleFocus(list)}} 
-									onBlur={handleBlur}
-								></NavSearch>
-							</CSSTransition>
-							<i className={focused ? "iconfont focused" : "iconfont"}>&#xe623;</i>
-							{ this.searchInfo(focused) }
-						</SearchWrapper>
 						<Addition>
 							<Button className="reg"><a href="/reg">注册</a></Button>
 							<Button className="writing"><i className="iconfont">&#xe615;</i><a href="/write">写事记</a></Button>
@@ -82,7 +49,9 @@ const mapStateToProps = (state) => ({
 	mouseIn: state.getIn(["header", "mouseIn"]),
 	currentPage: state.getIn(["header", "currentPage"]),
 	totalPage: state.getIn(["header", "totalPage"]),
-	pageSize: state.getIn(["header", "pageSize"])
+	pageSize: state.getIn(["header", "pageSize"]),
+	nav: state.getIn(["header", "nav"]),
+	activeNav: state.getIn(["header", "activeNav"]),
 })
 
 const mapDispatchToProps = (dispatch) => {
@@ -105,6 +74,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		handleLogout: () => {
 			dispatch(loginActionCreators.logout())
+		},
+		handleChangeNav: (index) => {
+			dispatch(actionCreators.changeNav(index))
 		}
 	}
 }
