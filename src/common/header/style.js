@@ -41,6 +41,9 @@ export const NavItem = styled.div`
 		margin-right:10px;
 		color:#333
 		font-size:17px
+		a{
+			color:#333
+		}
 		:hover{
 			background-color:#f2f2f2;
 		}

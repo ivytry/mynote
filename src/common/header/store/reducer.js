@@ -7,7 +7,34 @@ const defaultState = fromJS({
 	currentPage: 1,
 	totalPage: 1,
 	pageSize: 10,
-	list: []
+	list: [],
+	activeNav: 0,
+	nav: [{
+			id:"0",
+			name:"首页",
+			url:""
+		},{
+			id:"1",
+			name:"事记",
+			url:"things"
+		},{
+			id:"2",
+			name:"笔记",
+			url:"note"
+		},{
+			id:"3",
+			name:"日记",
+			url:"diary"
+		},{
+			id:"4",
+			name:"财务",
+			url:"finance"
+		},{
+			id:"5",
+			name:"账务",
+			url:"account"
+		},
+	]
 })
 
 export default (state = defaultState, action) => {
@@ -22,6 +49,8 @@ export default (state = defaultState, action) => {
 			return state.set("mouseIn", action.mouseIn);
 		case actionTypes.MOUSE_LEAVE:
 			return state.set("mouseIn", action.mouseIn);
+		case actionTypes.CHANGE_NAV:
+			return state.set("activeNav", action.activeNav);
 		case actionTypes.SWITCH_PAGE:
 			return state.set("currentPage", action.currentPage);
 		default:

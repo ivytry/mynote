@@ -4,3 +4,4 @@ export const INIT_SEARCH_INFO_LIST = 'header/INIT_SEARCH_INFO_LIST';
 export const MOUSE_ENTER = 'header/MOUSE_ENTER';
 export const MOUSE_LEAVE = 'header/MOUSE_LEAVE';
 export const SWITCH_PAGE = 'header/SWITCH_PAGE';
+export const CHANGE_NAV = 'header/CHANGE_NAV';

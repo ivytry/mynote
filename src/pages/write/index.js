@@ -16,7 +16,7 @@ class Write extends Component{
 				<LoginBox>
 					<h4>
 						<div>
-							<a className="active" href="">日记</a>
+							<a className="active" href="">事记</a>
 						</div>
 					</h4>
 					<div>

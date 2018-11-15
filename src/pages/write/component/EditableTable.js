@@ -20,9 +20,9 @@ const EditableFormRow = Form.create()(EditableRow);
 class EditableCell extends PureComponent {
   getInput = () => {
     if(this.props.inputType === 'stime'){
-      return <TimePicker format='HH:mm' />
+      return <TimePicker format='HH:mm' style={{'width':'80px'}} />
     }
-    return <Input style={{'width':'100px'}} />;
+    return <Input />;
   };
 
   render() {
@@ -81,7 +81,7 @@ class EditableTable extends PureComponent {
       {
         title: '事件',
         dataIndex: 'type',
-        width: '8%',
+        width: '10%',
         editable: true
       },
       {
@@ -125,7 +125,7 @@ class EditableTable extends PureComponent {
               <Divider type="vertical" />
               <span>
                 {
-                  (this.props.daynote.length > 1 && (this.props.daynote.type || this.props.daynote.things))
+                  this.props.daynote.length > 1
                   ? (
                     <Popconfirm title="确定要删除吗?" onConfirm={() => this.props.handleDelete(this.props.daynote, record.key)}>
                       <a href="javascript:;">删除</a>
@@ -216,7 +216,6 @@ class EditableTable extends PureComponent {
 
 function pakeDaynote(state){
   var daynote = state.get("write").daynote;
-  console.log(daynote)
   daynote.map((item, index) => {
     item.stime = moment((item.stime ? item.stime : moment()), format)
     item.etime = moment((item.etime ? item.etime : moment()), format)

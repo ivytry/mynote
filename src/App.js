@@ -7,6 +7,7 @@ import Login from './pages/login';
 import Home from './pages/home';
 import Detail from './pages/detail/loadable';
 import Write from './pages/write';
+import Diary from './pages/diary';
 import { GlobalStyle } from './style';
 
 class App extends PureComponent {
@@ -18,6 +19,7 @@ class App extends PureComponent {
 						<Header />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/write" component={Write} />
+						<Route exact path="/diary" component={Diary} />
 						<Route exact path="/" component={Home} />
 						<Route exact path="/detail/:id" component={Detail} />
 						<GlobalStyle whiteColor />

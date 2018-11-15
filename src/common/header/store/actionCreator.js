@@ -29,6 +29,11 @@ export const mouseLeave = () => ({
 	mouseIn: false
 })
 
+export const changeNav = (index) => ({
+	type: actionTypes.CHANGE_NAV,
+	activeNav: index
+})
+
 export const switchPage = (currentPage, totalPage, icon) => {
 	let deg = icon.style.transform.replace(/[^0-9]/ig,"")
 	if(deg){
