@@ -42,7 +42,9 @@ export const LoginBox = styled.div`
             }
         }
         .ant-list-item-extra{
-            padding-left:48px;
+            .iconfont{
+                margin-right:16px;
+            }
         }
     }
     .demo-loadmore-list {

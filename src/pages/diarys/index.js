@@ -5,7 +5,7 @@ import EditableTable from './component/EditableTable';
 import { List, Avatar, Button } from 'antd';
 import { LoginWrapper, LoginBox } from './style';
 
-class Diary extends Component{
+class Diarys extends Component{
 	render(){
 		return (
 			<LoginWrapper>
@@ -17,7 +17,7 @@ class Diary extends Component{
 					<div className="body">
 						<List
 						    itemLayout="horizontal"
-						    dataSource={data}
+						    dataSource={this.props.diarys}
 						    pagination={{
 						      onChange: (page) => {
 						        console.log(page);
@@ -26,10 +26,10 @@ class Diary extends Component{
 						    }}
 						    className="demo-loadmore-list"
 						    renderItem={item => (
-						      <List.Item extra={item.pubtime}>
+						      <List.Item extra={<span><i className="iconfont" dangerouslySetInnerHTML = {{ __html: item.weather }} ></i>{item.pubtime}</span>}>
 						        <List.Item.Meta
-						          avatar={<Avatar src={item.mood} />}
-						          title={<a href={"/"+item.id}>{item.title}</a>}
+						          avatar={<i className="iconfont" dangerouslySetInnerHTML = {{ __html: item.mood }} ></i>}
+						          title={<a href={"/detail/"+item.id}>{item.title}</a>}
 						          description={item.content}
 						        />
 						      </List.Item>
@@ -43,7 +43,7 @@ class Diary extends Component{
 }
 
 const mapState = (state) => ({
-	diary: state.get("diary")
+	diarys: state.get("diarys").diarys
 })
 
 const mapDispatch = (dispatch) => ({
@@ -52,4 +52,4 @@ const mapDispatch = (dispatch) => ({
 	}
 })
 
-export default connect(mapState, mapDispatch)(Diary)
+export default connect(mapState, mapDispatch)(Diarys)

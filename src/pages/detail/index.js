@@ -6,10 +6,19 @@ import { actionCreator } from './store';
 
 class Detail extends PureComponent{
 	render(){
+		const { pubtime, weather, mood, content, title, id } = this.props
 		return (
 			<DtailWrapper>
-				<Header>{this.props.title}</Header>
-				<Content dangerouslySetInnerHTML={{__html:this.props.content}} />
+				<Header>
+					<h4>{title}</h4>
+					<p>
+						<i className="iconfont" dangerouslySetInnerHTML = {{ __html: weather }} ></i>
+						<i className="iconfont" dangerouslySetInnerHTML = {{ __html: mood }} ></i>
+						<span>{pubtime}</span>
+					</p>
+					<a href={"/write/"+id}><i className="iconfont">&#xe615;</i></a>
+				</Header>
+				<Content dangerouslySetInnerHTML={{__html:content}} />
 			</DtailWrapper>
 		)
 	}
@@ -21,7 +30,11 @@ class Detail extends PureComponent{
 
 const mapState = (state) => ({
 	title: state.getIn(["detail", "title"]),
-	content: state.getIn(["detail", "content"])
+	content: state.getIn(["detail", "content"]),
+	mood: state.getIn(["detail", "mood"]),
+	weather: state.getIn(["detail", "weather"]),
+	pubtime: state.getIn(["detail", "pubtime"]),
+	id: state.getIn(["detail", "id"])
 })
 
 const mapDispatch = (dispatch) => ({

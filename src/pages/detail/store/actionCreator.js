@@ -5,7 +5,11 @@ const getDtail = (data) => {
 	return {
 		type: actionType.GET_DETAIL_DATA,
 		title: data.title,
-		content: data.content
+		mood: data.mood,
+		weather: data.weather,
+		pubtime: data.pubtime,
+		content: data.content,
+		id: data.id
 	}
 }
 

@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
 import { actionCreator as loginActionCreators } from '../../pages/login/store';
 import axios from 'axios';
+import { Icon } from 'antd';
 import { HeaderWrapper, HeaderInner, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style';
 
 class Header extends PureComponent {
@@ -29,7 +30,7 @@ class Header extends PureComponent {
 						}
 						{login ? <NavItem className="right" onClick={handleLogout}>退出</NavItem> : <Link to="/login"><NavItem className="right">登录</NavItem></Link>}
 						<NavItem className="right">
-							<i className="iconfont">&#xe636;</i>
+							<Icon type="bell" />
 						</NavItem>
 						<Addition>
 							<Button className="reg"><a href="/reg">注册</a></Button>

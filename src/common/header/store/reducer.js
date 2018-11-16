@@ -24,7 +24,7 @@ const defaultState = fromJS({
 		},{
 			id:"3",
 			name:"日记",
-			url:"diary"
+			url:"diarys"
 		},{
 			id:"4",
 			name:"财务",
