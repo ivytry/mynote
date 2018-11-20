@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from './store';
-import EditableTable from './component/EditableTable';
+import TotalTable from './component/TotalTable';
+import EditableTable2 from './component/EditableTable2';
+import EditableTable3 from './component/EditableTable3';
 import { DatePicker } from 'antd';
 import { LoginWrapper, LoginBox } from './style';
 import moment from 'moment';
 
 class Finance extends Component{
-	backToToday() {
-		console.log("回到今天")
-	}
-
 	render(){
 		const monthFormat = 'YYYY/MM';
 		return (
@@ -23,10 +21,9 @@ class Finance extends Component{
 					</h4>
 					<div>
 						<DatePicker.MonthPicker defaultValue={moment('2018/11', monthFormat)} format={monthFormat} />
-						<div className="calendar">
-							<span className="ant-select-selection today" onClick={this.backToToday}>今天</span>
-						</div>
-						<EditableTable />
+						<TotalTable />
+						<EditableTable2 />
+						<EditableTable3 />
 					</div>
 				</LoginBox>
 			</LoginWrapper>

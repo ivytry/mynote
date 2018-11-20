@@ -14,6 +14,9 @@ export const LoginBox = styled.div`
     vertical-align: middle;
     display:block;
     box-sizing: border-box;
+    .ant-table-wrapper{
+        margin-bottom: 20px;
+    }
     h4{
     	font-size: 18px;
     	font-weight: 400;
