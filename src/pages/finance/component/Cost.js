@@ -104,34 +104,40 @@ class EditableCell extends PureComponent {
   }
 }
 
-class EditableTable2 extends PureComponent {
+class Cost extends PureComponent {
   constructor(props) {
     super(props);
     this.columns = [
       {
         title: '树',
         children:[{
-          dataIndex:'title',
-          key:'title'
+          title: '项目',
+          dataIndex:'zivItem',
+          key:'zivItem'
         },{
-          dataIndex:'money',
-          key:'money'
+          title: '金额',
+          dataIndex:'zivMoney',
+          key:'zivMoney'
         },{
-          dataIndex:'date',
-          key:'date'
+          title: '日期',
+          dataIndex:'zivDate',
+          key:'zivDate'
         }]
       },
       {
         title: '懒',
         children:[{
-          dataIndex:'title',
-          key:'title'
+          title: '项目',
+          dataIndex:'ivyItem',
+          key:'ivyItem'
         },{
-          dataIndex:'money',
-          key:'money'
+          title: '金额',
+          dataIndex:'ivyMoney',
+          key:'ivyMoney'
         },{
-          dataIndex:'date',
-          key:'date'
+          title: '日期',
+          dataIndex:'ivyDate',
+          key:'ivyDate'
         }]
       },
     ];
@@ -155,7 +161,7 @@ class EditableTable2 extends PureComponent {
   save(form, key) {
     form.validateFields((error, row) => {
       if (error) {
-      	console.log(error)
+        console.log(error)
         return;
       }
       const newData = [...this.props.finance];
@@ -201,6 +207,7 @@ class EditableTable2 extends PureComponent {
       <Table
         components={components}
         bordered
+        pagination={false}
         dataSource={this.props.finance}
         loading={this.props.loading}
         columns={columns}
@@ -217,17 +224,17 @@ class EditableTable2 extends PureComponent {
 
 const mapState = (state) => {
   return {
-    finance: state.get("finance").finance,
+    finance: state.get("finance").finance.cost,
     editingKey: state.get("finance").editingKey,
     loading: state.get("finance").loading
   }
 }
 
 const mapDispatch = (dispatch) => {
-	return {
-		initialData: (m) => {
-			dispatch(actionCreator.getDayThings(m))
-		},
+  return {
+    initialData: (m) => {
+      dispatch(actionCreator.getDayThings(m))
+    },
     setData: (d, k) => {
       dispatch(actionCreator.handleSetData(d,k))
     },
@@ -240,7 +247,7 @@ const mapDispatch = (dispatch) => {
       })
       dispatch(actionCreator.handleSetData(d,k))
     }
-	}
+  }
 }
 
-export default connect(mapState, mapDispatch)(EditableTable2)
+export default connect(mapState, mapDispatch)(Cost)

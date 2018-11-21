@@ -3,12 +3,12 @@ import * as actionType from './actionType';
 
 const getDayNote = (data) => ({
 	type: actionType.GET_DAYNOTE,
-	finance: data
+	daynote: data
 })
 
-export const getDayThings = (m) => {
+export const getDayThings = (d) => {
 	return (dispatch) => {
-		axios.get("/api/finance.json?month="+m).then((res) => {
+		axios.get("/api/daynote.json?date="+d).then((res) => {
 			var result = res.data.data;
 			dispatch(getDayNote(result))
 		}).catch((err) => {
@@ -19,6 +19,6 @@ export const getDayThings = (m) => {
 
 export const handleSetData = (d, k) => ({
 	type: actionType.SET_DATA,
-	finance: d,
-	editing: k
+	daynote: d,
+	editingKey: k
 })

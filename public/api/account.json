@@ -1,0 +1,19 @@
+{
+	"success": true,
+	"data": [
+		{
+			"key": 1,
+	    	"flag": 1,
+	    	"stime": "2018/11/20 12:58",
+	    	"etime": "",
+	    	"lender": "懒",
+	    	"borrower": "梁伟",
+	    	"money": "1000",
+	    	"remark": "化妆品周转货款。下周一发工资还。",
+	    	"smode": "支付宝",
+	    	"emode": "",
+	    	"schannel": "微信",
+	    	"echannel": ""
+		}
+	]
+}

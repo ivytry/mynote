@@ -1,11 +1,95 @@
 {
 	"success": true,
-	"data": [
-		{
-			"key": 1,
-	    	"title": "工资",
-	    	"money": "22000",
-	    	"date": "2018/11/18"
-		}
-	]
+	"data": {
+		"revenue":[
+			{
+				"key": 1,
+		    	"title": "工资",
+		    	"ivyMoney": "18000",
+		    	"ivyDate": "2018/11/18",
+		    	"zivMoney": "22000",
+		    	"zivDate": "2018/11/22"
+			},
+			{
+				"key": 2,
+		    	"title": "公积金",
+		    	"ivyMoney": "4500",
+		    	"ivyDate": "2018/11/1",
+		    	"zivMoney": "4500",
+		    	"zivDate": "2018/11/2"
+			},
+			{
+				"key": 3,
+		    	"title": "奖金",
+		    	"ivyMoney": "",
+		    	"ivyDate": "",
+		    	"zivMoney": "",
+		    	"zivDate": ""
+			},
+			{
+				"key": 4,
+		    	"title": "其他收入",
+		    	"ivyMoney": "",
+		    	"ivyDate": "",
+		    	"zivMoney": "",
+		    	"zivDate": ""
+			}
+		],
+		"cost": [
+			{
+				"key": 1,
+		    	"ivyItem": "房贷",
+		    	"ivyMoney": "6000",
+		    	"ivyDate": "2018/11/23",
+		    	"zivItem": "平安信用卡",
+		    	"zivMoney": "22000",
+		    	"zivDate": "2018/11/5"
+			},
+			{
+				"key": 2,
+		    	"ivyItem": "花呗",
+		    	"ivyMoney": "6000",
+		    	"ivyDate": "2018/11/23",
+		    	"zivItem": "花呗",
+		    	"zivMoney": "22000",
+		    	"zivDate": "2018/11/22"
+			},
+			{
+				"key": 3,
+		    	"ivyItem": "中信信用卡",
+		    	"ivyMoney": "6000",
+		    	"ivyDate": "2018/11/23",
+		    	"zivItem": "光大信用卡",
+		    	"zivMoney": "22000",
+		    	"zivDate": "2018/11/22"
+			},
+			{
+				"key": 4,
+		    	"ivyItem": "微信",
+		    	"ivyMoney": "6000",
+		    	"ivyDate": "2018/11/23",
+		    	"zivItem": "微信",
+		    	"zivMoney": "22000",
+		    	"zivDate": "2018/11/22"
+			},
+			{
+				"key": 5,
+		    	"ivyItem": "支付宝",
+		    	"ivyMoney": "6000",
+		    	"ivyDate": "2018/11/23",
+		    	"zivItem": "支付宝",
+		    	"zivMoney": "22000",
+		    	"zivDate": "2018/11/22"
+			},
+			{
+				"key": 5,
+		    	"ivyItem": "工行银行卡",
+		    	"ivyMoney": "6000",
+		    	"ivyDate": "2018/11/23",
+		    	"zivItem": "其他",
+		    	"zivMoney": "22000",
+		    	"zivDate": "2018/11/22"
+			}
+		]
+	}
 }

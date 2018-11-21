@@ -14,11 +14,8 @@ export const LoginBox = styled.div`
     vertical-align: middle;
     display:block;
     box-sizing: border-box;
-    .ant-table-wrapper{
-        margin-bottom: 20px;
-    }
-    .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
-        padding: 10px 16px;
+    .w-e-text{
+        overflow-y: auto;
     }
     h4{
     	font-size: 18px;

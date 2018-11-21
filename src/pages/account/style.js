@@ -14,12 +14,6 @@ export const LoginBox = styled.div`
     vertical-align: middle;
     display:block;
     box-sizing: border-box;
-    .ant-table-wrapper{
-        margin-bottom: 20px;
-    }
-    .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
-        padding: 10px 16px;
-    }
     h4{
     	font-size: 18px;
     	font-weight: 400;
@@ -31,18 +25,6 @@ export const LoginBox = styled.div`
     		font-weight: 700;
             color: #ea6f5a;
     	}
-    }
-    .calendar{
-        position:relative;
-        .today{
-            position: absolute;
-            top:11px;
-            right:240px;
-            cursor: pointer;
-            height: 24px;
-            padding:0 7px;
-            line-height: 22px;
-        }
     }
     .editable-row .ant-form-explain {
         position: absolute;

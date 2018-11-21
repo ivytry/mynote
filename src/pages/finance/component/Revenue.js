@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from '../store';
-import { Table, Input, Popconfirm, Form, TimePicker, Divider } from 'antd';
-import moment from 'moment';
+import { Button, Table, Input, Popconfirm, Form, TimePicker, Divider } from 'antd';
 require('antd/dist/antd.css');
 
-const format = 'HH:mm';
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
 
@@ -32,16 +30,15 @@ class EditableCell extends PureComponent {
   }
 
   toggleEdit = () => {
-    const editing = !this.state.editing;
-    this.setState({ editing }, () => {
-      if (editing) {
-        this.input.focus();
-      }
-    });
+    const editing = !this.props.editing;
+    this.props.setData(this.props.finance, !this.props.editing)
+    if (editing) {
+      this.input.focus();
+    }
   }
 
   handleClickOutside = (e) => {
-    const { editing } = this.state;
+    const { editing } = this.props;
     if (editing && this.cell !== e.target && !this.cell.contains(e.target)) {
       this.save();
     }
@@ -59,18 +56,19 @@ class EditableCell extends PureComponent {
   }
 
   render() {
+    const { editing } = this.props
     const {
-      editing,
+      editable,
       dataIndex,
       title,
       record,
       index,
+      handleSave,
       ...restProps
     } = this.props;
-
     return (
       <td ref={node => (this.cell = node)} {...restProps}>
-        {editing ? (
+        {editable ? (
           <EditableContext.Consumer>
             {(form) => {
               this.form = form;
@@ -104,31 +102,50 @@ class EditableCell extends PureComponent {
   }
 }
 
-class EditableTable extends PureComponent {
+class Revenue extends PureComponent {
   constructor(props) {
     super(props);
     this.columns = [
       {
-        title: '总',
-        width: '8%',
-        children:[{},{}]
-      },
-      {
         title: '树',
-        width: '10%',
-        children:[{},{}]
+        children:[{
+          title: '项目',
+          dataIndex:'title',
+          key:'title',
+          editable: true
+        },{
+          title: '金额',
+          dataIndex:'zivMoney',
+          key:'zivMoney',
+          editable: true
+        },{
+          title: '日期',
+          dataIndex:'zivDate',
+          key:'zivDate',
+          editable: true
+        }]
       },
       {
         title: '懒',
-        width: '10%',
-        children:[{},{}]
+        children:[{
+          title: '项目',
+          dataIndex:'title',
+          key:'title',
+          editable: true
+        },{
+          title: '金额',
+          dataIndex:'ivyMoney',
+          key:'ivyMoney',
+          editable: true
+        },{
+          title: '日期',
+          dataIndex:'ivyDate',
+          key:'ivyDate',
+          editable: true
+        }]
       },
     ];
   }
-
-  isEditing = (record) => {
-    return record.key === this.props.editingKey;
-  };
 
   handleSave = (row) => {
     const newData = [...this.props.dataSource];
@@ -181,20 +198,27 @@ class EditableTable extends PureComponent {
           record,
           dataIndex: col.dataIndex,
           title: col.title,
-          editing: this.isEditing(record),
+          editable: col.editable,
           handleSave: this.handleSave
         }),
       };
     });
+    
     return (
-      <Table
-        components={components}
-        bordered
-        dataSource={this.props.finance}
-        loading={this.props.loading}
-        columns={columns}
-        rowClassName="editable-row"
-      />
+      <div>
+        <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
+          Add a row
+        </Button>
+        <Table
+          components={components}
+          bordered
+          pagination={false}
+          dataSource={this.props.finance}
+          loading={this.props.loading}
+          columns={columns}
+          rowClassName="editable-row"
+        />
+      </div>
     );
   }
 
@@ -206,8 +230,8 @@ class EditableTable extends PureComponent {
 
 const mapState = (state) => {
   return {
-    finance: state.get("finance").finance,
-    editingKey: state.get("finance").editingKey,
+    finance: state.get("finance").finance.revenue,
+    editing: state.get("finance").editing,
     loading: state.get("finance").loading
   }
 }
@@ -232,4 +256,4 @@ const mapDispatch = (dispatch) => {
 	}
 }
 
-export default connect(mapState, mapDispatch)(EditableTable)
+export default connect(mapState, mapDispatch)(Revenue)

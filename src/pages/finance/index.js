@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from './store';
 import TotalTable from './component/TotalTable';
-import EditableTable2 from './component/EditableTable2';
-import EditableTable3 from './component/EditableTable3';
+import Revenue from './component/Revenue';
+import Cost from './component/Cost';
 import { DatePicker } from 'antd';
 import { LoginWrapper, LoginBox } from './style';
 import moment from 'moment';
@@ -22,8 +22,8 @@ class Finance extends Component{
 					<div>
 						<DatePicker.MonthPicker defaultValue={moment('2018/11', monthFormat)} format={monthFormat} />
 						<TotalTable />
-						<EditableTable2 />
-						<EditableTable3 />
+						<Revenue />
+						<Cost />
 					</div>
 				</LoginBox>
 			</LoginWrapper>

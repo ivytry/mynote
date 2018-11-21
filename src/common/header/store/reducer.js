@@ -20,7 +20,7 @@ const defaultState = fromJS({
 		},{
 			id:"2",
 			name:"笔记",
-			url:"note"
+			url:"notes"
 		},{
 			id:"3",
 			name:"日记",
