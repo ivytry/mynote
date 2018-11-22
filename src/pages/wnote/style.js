@@ -29,18 +29,6 @@ export const LoginBox = styled.div`
             color: #ea6f5a;
     	}
     }
-    .calendar{
-        position:relative;
-        .today{
-            position: absolute;
-            top:11px;
-            right:240px;
-            cursor: pointer;
-            height: 24px;
-            padding:0 7px;
-            line-height: 22px;
-        }
-    }
     .editable-row .ant-form-explain {
         position: absolute;
         font-size: 12px;
