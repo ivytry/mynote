@@ -10,12 +10,18 @@ export const LoginBox = styled.div`
 	width: 960px;
 	margin: 0 auto;
     padding: 10px 50px 30px;
-    background-color: #fff;
-    vertical-align: middle;
-    display:block;
     box-sizing: border-box;
     .w-e-text{
         overflow-y: auto;
+    }
+    .btn{
+        float:right;
+        padding:5px 5px 0 0;
+        font-size:16px;
+        margin-right:6px;
+        &.cancel{
+            color:#666;
+        }
     }
     h4{
     	font-size: 18px;
@@ -28,11 +34,6 @@ export const LoginBox = styled.div`
     		font-weight: 700;
             color: #ea6f5a;
     	}
-    }
-    .editable-row .ant-form-explain {
-        position: absolute;
-        font-size: 12px;
-        margin-top: -4px;
     }
 `;
 

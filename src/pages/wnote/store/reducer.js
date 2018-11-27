@@ -1,7 +1,12 @@
 import * as actionType from './actionType';
 
 const defaultState = {
-	editorContent: ''
+	editorContent: '',
+	title: '',
+	time: '',
+	mood: '',
+	type: '',
+	weather: ''
 }
 
 const copyState = (state) =>{
@@ -15,6 +20,9 @@ export default (state = defaultState, action) => {
 	switch(action.type){
 		case actionType.CHANGE_CONTENT:
 			newState.editorContent = action.html;
+			return newState;
+		case actionType.CHANGE_TITLE:
+			newState.title = action.title;
 			return newState;
 		default:
 			return state;

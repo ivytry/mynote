@@ -15,3 +15,8 @@ export const changeContent = (html) => ({
 	type: actionType.CHANGE_CONTENT,
 	editorContent: html
 })
+
+export const changeTitle = (title) => ({
+	type: actionType.CHANGE_TITLE,
+	title
+})

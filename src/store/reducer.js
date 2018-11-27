@@ -7,6 +7,7 @@ import { reducer as writeReducer } from '../pages/write/store';
 import { reducer as diarysReducer } from '../pages/diarys/store';
 import { reducer as FinanceReducer } from '../pages/finance/store';
 import { reducer as NotesReducer } from '../pages/notes/store';
+import { reducer as wnoteReducer } from '../pages/wnote/store';
 
 const reducer = combineReducers({
 	header: headerReducer,
@@ -16,7 +17,8 @@ const reducer = combineReducers({
 	write: writeReducer,
 	diarys: diarysReducer,
 	finance: FinanceReducer,
-	notes: NotesReducer
+	notes: NotesReducer,
+	wnote: wnoteReducer
 })
 
 export default reducer
