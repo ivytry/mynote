@@ -5,7 +5,6 @@ const defaultState = {
 	title: '',
 	time: '',
 	mood: '',
-	type: '',
 	weather: ''
 }
 
@@ -23,6 +22,13 @@ export default (state = defaultState, action) => {
 			return newState;
 		case actionType.CHANGE_TITLE:
 			newState.title = action.title;
+			return newState;
+		case actionType.INIT_CONTENT:
+			newState.title = action.title;
+			newState.editorContent = action.editorContent;
+			newState.time = action.time;
+			newState.mood = action.mood;
+			newState.weather = action.weather;
 			return newState;
 		default:
 			return state;

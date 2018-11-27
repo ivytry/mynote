@@ -16,7 +16,7 @@ class Detail extends PureComponent{
 						<i className="iconfont" dangerouslySetInnerHTML = {{ __html: mood }} ></i>
 						<span>{pubtime}</span>
 					</p>
-					<a href={"/write/"+id}><i className="iconfont">&#xe615;</i></a>
+					<a href={"/wnote/"+id}><i className="iconfont">&#xe615;</i></a>
 				</Header>
 				<Content dangerouslySetInnerHTML={{__html:content}} />
 			</DtailWrapper>

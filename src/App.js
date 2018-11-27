@@ -30,6 +30,7 @@ class App extends PureComponent {
 						<Route exact path="/account" component={Account} />
 						<Route exact path="/" component={Home} />
 						<Route exact path="/detail/:id" component={Detail} />
+						<Route exact path="/wnote/:id" component={Wnote} />
 						<GlobalStyle whiteColor />
 					</div>
 				</BrowserRouter>

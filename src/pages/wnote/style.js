@@ -1,15 +1,9 @@
 import styled from 'styled-components';
 
-export const LoginWrapper = styled.div`
-	width:100%;
-	height:100%;
-	margin: 0 auto;
-`;
-
 export const LoginBox = styled.div`
-	width: 960px;
-	margin: 0 auto;
-    padding: 10px 50px 30px;
+    width: 960px;
+    margin: 0 auto;
+    padding: 10px 50px 0;
     box-sizing: border-box;
     .w-e-text{
         overflow-y: auto;

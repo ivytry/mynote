@@ -1,10 +1,20 @@
 import axios from 'axios';
 import * as actionType from './actionType';
 
-export const getDayThings = (d) => {
+const initContent = (data) => ({
+	type: actionType.INIT_CONTENT,
+	editorContent: data.content,
+	title: data.title,
+	time: data.pubtime,
+	mood: data.mood,
+	weather: data.weather
+})
+
+export const getContent = (id) => {
 	return (dispatch) => {
-		axios.get("/api/daynote.json?date="+d).then((res) => {
+		axios.get("/api/detail.json?id="+id).then((res) => {
 			var result = res.data.data;
+			dispatch(initContent(result));
 		}).catch((err) => {
 			console.log(err)
 		})

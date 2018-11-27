@@ -54,61 +54,48 @@ class Write extends Component{
 			handleChangeTitle, handleChange, handleChangeTime, handleChangeWeather, handleChangeMood, handleChangeType
 		} = this.props
 
-		const format = "YYYY-MM-DD HH:mm:ss"
-
-		function onOk(value) {
-		  console.log('onOk: ', value);
-		}
-
-		function onChange(value, dateString) {
-		  console.log('Selected Time: ', value);
-		  console.log('Formatted Selected Time: ', dateString);
-		}
-
 		return (
-			<LoginWrapper>
-				<LoginBox>
-					<h4>
-						<div>
-							<a className="active" href="">写笔记</a>
-						</div>
-					</h4>
-					<div style={{overflow: "hidden"}}>
-						<FormItem
-				          {...formItemLayout}
-				          label="标题"
-				          style={{float:"left",width:440,marginBottom:"2px"}}
-				        >
-				            <Input value={title} onChange={handleChangeTitle} />
-				        </FormItem>
-			        </div>
+			<LoginBox>
+				<h4>
+					<div>
+						<a className="active" href="">写笔记</a>
+					</div>
+				</h4>
+				<div style={{overflow: "hidden"}}>
+					<FormItem
+			          {...formItemLayout}
+			          label="标题"
+			          style={{float:"left",width:440,marginBottom:"2px"}}
+			        >
+			            <Input value={title} onChange={handleChangeTitle} />
+			        </FormItem>
+		        </div>
+				<div>
 					<a className="btn save" title="保存"><Icon type="save" /></a>
 					<div ref="editorMenu"></div>
 					<div ref="editorElem" style={{height: "700px", minHeight: "400px", border: "1px solid #f0f0f0"}} onKeyDown={this.handleKeyDown}></div>
-					<div>
-					    <DatePicker
-					      onChange={onChange}
-					    />
-					    <Select defaultValue="晴" style={{ width: 120 }} onChange={handleChangeWeather}>
-					      <Option value="jack">晴</Option>
-					      <Option value="lucy">阴</Option>
-					      <Option value="disabled">大雨</Option>
-					      <Option value="Yiminghe">小雨</Option>
-					      <Option value="Yiminghe">毛毛雨</Option>
-					    </Select>
-					    <Select defaultValue="一般" style={{ width: 120 }} onChange={handleChangeMood}>
-					      <Option value="jack">一般</Option>
-					      <Option value="lucy">好</Option>
-					      <Option value="disabled">不好</Option>
-					      <Option value="Yiminghe">开心</Option>
-					    </Select>
-					    <Select defaultValue="日记" style={{ width: 120, float:"right" }} onChange={handleChangeType}>
-					      <Option value="diary">日记</Option>
-					      <Option value="note">笔记</Option>
-					    </Select>
-					</div>
-				</LoginBox>
-			</LoginWrapper>
+				</div>
+				<div>
+				    <DatePicker />
+				    <Select defaultValue="晴" style={{ width: 120 }} onChange={handleChangeWeather}>
+				      <Option value="jack">晴</Option>
+				      <Option value="lucy">阴</Option>
+				      <Option value="disabled">大雨</Option>
+				      <Option value="Yiminghe">小雨</Option>
+				      <Option value="Yiminghe">毛毛雨</Option>
+				    </Select>
+				    <Select defaultValue="一般" style={{ width: 120 }} onChange={handleChangeMood}>
+				      <Option value="jack">一般</Option>
+				      <Option value="lucy">好</Option>
+				      <Option value="disabled">不好</Option>
+				      <Option value="Yiminghe">开心</Option>
+				    </Select>
+				    <Select defaultValue="日记" style={{ width: 120, float:"right" }} onChange={handleChangeType}>
+				      <Option value="diary">日记</Option>
+				      <Option value="note">笔记</Option>
+				    </Select>
+				</div>
+			</LoginBox>
 		)
 	}
 	renderEditor(){
@@ -125,7 +112,11 @@ class Write extends Component{
 	    editor.txt.html(this.props.editorContent)
 	}
 	componentDidMount(){
+		console.log(this.props.title)
 		this.renderEditor()
+	}
+	componentWillMount(){
+		this.props.match.params.id ? this.props.getContent(this.props.match.params.id) : ''
 	}
 }
 
@@ -139,6 +130,9 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
+	getContent: (id) => {
+		dispatch(actionCreator.getContent(id))
+	},
 	handleChange: (html) => {
 		dispatch(actionCreator.changeContent(html))
 	},
@@ -151,20 +145,17 @@ const mapDispatch = (dispatch) => ({
 		console.log(datestring)
 		dispatch(actionCreator.changeTitle(datestring))
 	},
-	handleChangeMood: (e) => {
-		const title = e.target.value
-		console.log(title)
-		dispatch(actionCreator.changeTitle(title))
+	handleChangeMood: (value) => {
+		console.log(value)
+		dispatch(actionCreator.changeTitle(value))
 	},
-	handleChangeWeather: (e) => {
-		const title = e.target.value
-		console.log(title)
-		dispatch(actionCreator.changeTitle(title))
+	handleChangeWeather: (value) => {
+		console.log(value)
+		dispatch(actionCreator.changeTitle(value))
 	},
-	handleChangeType: (e) => {
-		const title = e.target.value
-		console.log(title)
-		dispatch(actionCreator.changeTitle(title))
+	handleChangeType: (value) => {
+		console.log(value)
+		dispatch(actionCreator.changeTitle(value))
 	}
 })
 
