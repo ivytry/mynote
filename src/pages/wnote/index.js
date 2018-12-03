@@ -2,10 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from './store';
 import E from 'wangeditor';
-//import EditableTable from './component/EditableTable';
 import moment from 'moment';
-import { Button, DatePicker, Select, Icon, Form, Input } from 'antd';
+import { Button, DatePicker, Select, Icon, Form, Input, message } from 'antd';
 import { LoginWrapper, LoginBox } from './style';
+
+message.config({
+  top: 130,
+  duration: 1,
+  maxCount: 1
+});
+
+const success = () => {
+  message.success('已保存');
+};
+
+const error = () => {
+  message.error('保存失败');
+};
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -51,7 +64,7 @@ class Write extends Component{
 	render(){
 		const {
 			title, editorContent, time, weather, mood, type, 
-			handleChangeTitle, handleChange, handleChangeTime, handleChangeWeather, handleChangeMood, handleChangeType
+			handleChangeTitle, handleChange, handleChangeTime, handleChangeWeather, handleChangeMood, handleChangeType, handleSave
 		} = this.props
 
 		return (
@@ -71,7 +84,8 @@ class Write extends Component{
 			        </FormItem>
 		        </div>
 				<div>
-					<a className="btn save" title="保存"><Icon type="save" /></a>
+					<a className="btn save" target="view_window" title="预览" href={"/detail/"+this.props.match.params.id}><Icon type="border-left" /></a>
+					<a className="btn save" title="保存" onClick={handleSave}><Icon type="save" /></a>
 					<div ref="editorMenu"></div>
 					<div ref="editorElem" style={{height: "700px", minHeight: "400px", border: "1px solid #f0f0f0"}} onKeyDown={this.handleKeyDown}></div>
 				</div>
@@ -101,22 +115,24 @@ class Write extends Component{
 	renderEditor(){
 	    const elem = this.refs.editorElem
 	    const menu = this.refs.editorMenu
-	    const editor = new E(menu, elem)
-		editor.customConfig = {
+	    this.editor = new E(menu, elem)
+		this.editor.customConfig = {
 		    onchange : html => {
 		        this.props.handleChange(html)
 		    },
 		    colors : ['#000000','#eeece0','#1c487f','#4d80bf','#c24f4a','#8baa4a','#7b5ba1','#46acc8','#f9963b','#ffffff']
 		}
-	    editor.create()
-	    editor.txt.html(this.props.editorContent)
+	    this.editor.create()
+	    
 	}
 	componentDidMount(){
-		console.log(this.props.title)
 		this.renderEditor()
 	}
 	componentWillMount(){
 		this.props.match.params.id ? this.props.getContent(this.props.match.params.id) : ''
+	}
+	componentDidUpdate(){
+		this.editor ? this.editor.txt.html(this.props.editorContent) : ''
 	}
 }
 
@@ -156,6 +172,9 @@ const mapDispatch = (dispatch) => ({
 	handleChangeType: (value) => {
 		console.log(value)
 		dispatch(actionCreator.changeTitle(value))
+	},
+	handleSave: () => {
+		success()
 	}
 })
 
