@@ -34,7 +34,7 @@ class Header extends PureComponent {
 						</NavItem>
 						<Addition>
 							<Button className="reg"><a href="/reg">注册</a></Button>
-							<Button className="writing"><i className="iconfont">&#xe615;</i><a href="/write">写事记</a></Button>
+							<Button className="writing"><i className="iconfont">&#xe615;</i><a href="/things">写事记</a></Button>
 						</Addition>
 					</Nav>
 				</HeaderInner>

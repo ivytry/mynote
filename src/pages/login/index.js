@@ -14,13 +14,13 @@ class Login extends PureComponent{
 							<div>
 								<a className="active" href="/login">登录</a>
 								<b> · </b>
-								<a href="/logup">注册</a>
+								<a href="/reg">注册</a>
 							</div>
 						</h4>
 						<div>
 							<form action="/sessions">
 								<div className="restyle">
-									<input className="ic-user" type="text" placeholder="手机号或邮箱" ref={(input) => {this.account = input}} />
+									<input className="ic-user" type="text" placeholder="用户名或手机号" ref={(input) => {this.account = input}} />
 									<i class="iconfont">&#xe624;</i>
 								</div>
 								<div className="restyle">
@@ -29,16 +29,10 @@ class Login extends PureComponent{
 								</div>
 								<div className="remember-btn">
 									<input type="checkbox" value="true" checked />
-									<span>记住我</span>
+									<span>记住密码</span>
 								</div>
 								<div className="forget-btn">
-									<a href data-toggle="dropdown">登录遇到问题?</a>
-									<ul className="dropdown-menu">
-								        <li><a href="/users/password/mobile_reset">用手机号重置密码</a></li>
-								        <li><a href="/users/password/email_reset">用邮箱重置密码</a></li>
-								        <li><a target="_blank" href="/p/9058d0b8711d">无法用海外手机号登录</a></li>
-								        <li><a target="_blank" href="/p/498a9fa7da08">无法用 Google 帐号登录</a></li>
-								    </ul>
+									<a href data-toggle="dropdown">忘记密码</a>
 								</div>
 								<button onClick={() => {this.props.handleLogin(this.account.value, this.password.value)}}>登陆</button>
 							</form>

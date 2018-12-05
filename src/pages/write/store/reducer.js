@@ -1,4 +1,5 @@
 import * as actionType from './actionType';
+var moment = require('moment');
 
 const defaultState = {
 	daynote: [{
@@ -9,7 +10,9 @@ const defaultState = {
     	"things": ""
 	}],
 	editingKey: '',
-	loading: false
+	loading: false,
+	period: [],
+	day: moment()
 }
 
 const copyState = (state) =>{
@@ -23,10 +26,14 @@ export default (state = defaultState, action) => {
 	switch(action.type){
 		case actionType.GET_DAYNOTE:
 			newState.daynote = action.daynote;
+			newState.day = action.day;
 			return newState;
 		case actionType.SET_DATA:
 			newState.daynote = action.daynote;
 			newState.editingKey = action.editingKey;
+			return newState;
+		case actionType.INIT_DATE:
+			newState.period = action.period;
 			return newState;
 		default:
 			return state;

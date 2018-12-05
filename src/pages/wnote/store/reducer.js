@@ -23,6 +23,15 @@ export default (state = defaultState, action) => {
 		case actionType.CHANGE_TITLE:
 			newState.title = action.title;
 			return newState;
+		case actionType.CHANGE_WEATHER:
+			newState.weather = action.weather;
+			return newState;
+		case actionType.CHANGE_MOOD:
+			newState.mood = action.mood;
+			return newState;
+		case actionType.CHANGE_TIME:
+			newState.time = action.time;
+			return newState;
 		case actionType.INIT_CONTENT:
 			newState.title = action.title;
 			newState.editorContent = action.editorContent;

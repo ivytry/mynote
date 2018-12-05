@@ -2,15 +2,41 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from './store';
 import EditableTable from './component/EditableTable';
-import { Calendar } from 'antd';
+import { Calendar, Badge } from 'antd';
 import { LoginWrapper, LoginBox } from './style';
+var moment = require('moment');
 
 class Write extends Component{
-	backToToday() {
-		console.log("回到今天")
+
+    getListData(value) {
+	  let listData;
+	  for(var i=0; i<this.props.period.length; i++){
+    	if(this.props.period[i] === value.format("YYYY/MM/DD")){
+    		listData = [
+		        { type: 'error' }
+		    ]; 
+		    break;
+    	}
+	  }
+	  return listData || [];
+	}
+
+    dateCellRender(value) {
+	  const listData = this.getListData(value);
+	  return (
+	    <ul className="events">
+	      {
+	        listData.map((item, index) => (
+	            <Badge status={item.type} key={index} />
+	        ))
+	      }
+	    </ul>
+	  );
 	}
 
 	render(){
+		const { day, handleSelect } = this.props
+		console.log(day)
 		return (
 			<LoginWrapper>
 				<LoginBox>
@@ -21,8 +47,8 @@ class Write extends Component{
 					</h4>
 					<div>
 						<div className="calendar">
-							<span className="ant-select-selection today" onClick={this.backToToday}>今天</span>
-							<Calendar fullscreen={false} onSelect={this.props.handleSelect} />
+							<span className="ant-select-selection today" onClick={() => { handleSelect(moment()) }}>今天</span>
+							<Calendar value={day ? day : moment()} fullscreen={false} onSelect={handleSelect} dateCellRender={this.dateCellRender.bind(this)} />
 						</div>
 						<EditableTable />
 					</div>
@@ -30,12 +56,24 @@ class Write extends Component{
 			</LoginWrapper>
 		)
 	}
+
+	componentDidMount(){
+		this.props.initDate()
+	}
 }
+
+const mapState = (state) => ({
+	period: state.get("write").period,
+	day: state.get("write").day
+})
 
 const mapDispatch = (dispatch) => ({
 	handleSelect: (m) => {
 		dispatch(actionCreator.getDayThings(m))
+	},
+	initDate: () => {
+		dispatch(actionCreator.getInitDate())
 	}
 })
 
-export default connect(null, mapDispatch)(Write)
+export default connect(mapState, mapDispatch)(Write)

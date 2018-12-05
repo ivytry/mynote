@@ -46,9 +46,6 @@ document.onkeydown=function (event) {
 }
 
 class Write extends Component{
-	handleChange(value) {
-	  console.log(`selected ${value}`);
-	}
 	handleKeyDown(){
 		var i=0;
 		document.addEventListener('keyup',function(e){
@@ -64,7 +61,7 @@ class Write extends Component{
 	render(){
 		const {
 			title, editorContent, time, weather, mood, type, 
-			handleChangeTitle, handleChange, handleChangeTime, handleChangeWeather, handleChangeMood, handleChangeType, handleSave
+			handleChangeTitle, handleChangeTime, handleChangeWeather, handleChangeMood, handleSave
 		} = this.props
 
 		return (
@@ -90,12 +87,12 @@ class Write extends Component{
 					<div ref="editorElem" style={{height: "700px", minHeight: "400px", border: "1px solid #f0f0f0"}} onKeyDown={this.handleKeyDown}></div>
 				</div>
 				<div>
-				    <DatePicker />
+				    <DatePicker onChange={handleChangeTime} />
 				    <Select defaultValue="晴" style={{ width: 120 }} onChange={handleChangeWeather}>
 				      <Option value="jack">晴</Option>
 				      <Option value="lucy">阴</Option>
 				      <Option value="disabled">大雨</Option>
-				      <Option value="Yiminghe">小雨</Option>
+				      <Option value="trtr">小雨</Option>
 				      <Option value="Yiminghe">毛毛雨</Option>
 				    </Select>
 				    <Select defaultValue="一般" style={{ width: 120 }} onChange={handleChangeMood}>
@@ -103,10 +100,6 @@ class Write extends Component{
 				      <Option value="lucy">好</Option>
 				      <Option value="disabled">不好</Option>
 				      <Option value="Yiminghe">开心</Option>
-				    </Select>
-				    <Select defaultValue="日记" style={{ width: 120, float:"right" }} onChange={handleChangeType}>
-				      <Option value="diary">日记</Option>
-				      <Option value="note">笔记</Option>
 				    </Select>
 				</div>
 			</LoginBox>
@@ -120,6 +113,7 @@ class Write extends Component{
 		    onchange : html => {
 		        this.props.handleChange(html)
 		    },
+		    zIndex: 100,
 		    colors : ['#000000','#eeece0','#1c487f','#4d80bf','#c24f4a','#8baa4a','#7b5ba1','#46acc8','#f9963b','#ffffff']
 		}
 	    this.editor.create()
@@ -156,22 +150,14 @@ const mapDispatch = (dispatch) => ({
 		const title = e.target.value
 		dispatch(actionCreator.changeTitle(title))
 	},
-	handleChangeTime: (date, datestring) => {
-		console.log(date)
-		console.log(datestring)
-		dispatch(actionCreator.changeTitle(datestring))
+	handleChangeTime: (date, dateString) => {
+		dispatch(actionCreator.changeTime(dateString))
 	},
 	handleChangeMood: (value) => {
-		console.log(value)
-		dispatch(actionCreator.changeTitle(value))
+		dispatch(actionCreator.changeMood(value))
 	},
 	handleChangeWeather: (value) => {
-		console.log(value)
-		dispatch(actionCreator.changeTitle(value))
-	},
-	handleChangeType: (value) => {
-		console.log(value)
-		dispatch(actionCreator.changeTitle(value))
+		dispatch(actionCreator.changeWeather(value))
 	},
 	handleSave: () => {
 		success()

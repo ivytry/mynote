@@ -30,3 +30,18 @@ export const changeTitle = (title) => ({
 	type: actionType.CHANGE_TITLE,
 	title
 })
+
+export const changeWeather = (value) => ({
+	type: actionType.CHANGE_WEATHER,
+	weather: value
+})
+
+export const changeMood = (value) => ({
+	type: actionType.CHANGE_MOOD,
+	mood: value
+})
+
+export const changeTime = (value) => ({
+	type: actionType.CHANGE_TIME,
+	time: value
+})

@@ -12,6 +12,7 @@ import Notes from './pages/notes';
 import Finance from './pages/finance';
 import Account from './pages/account';
 import Wnote from './pages/wnote';
+import Reg from './pages/reg';
 import { GlobalStyle } from './style';
 
 class App extends PureComponent {
@@ -21,14 +22,15 @@ class App extends PureComponent {
 				<BrowserRouter>
 					<div>
 						<Header />
+						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={Login} />
-						<Route exact path="/write" component={Write} />
+						<Route exact path="/reg" component={Reg} />
+						<Route exact path="/things" component={Write} />
 						<Route exact path="/wnote" component={Wnote} />
 						<Route exact path="/diarys" component={Diarys} />
 						<Route exact path="/notes" component={Notes} />
 						<Route exact path="/finance" component={Finance} />
 						<Route exact path="/account" component={Account} />
-						<Route exact path="/" component={Home} />
 						<Route exact path="/detail/:id" component={Detail} />
 						<Route exact path="/wnote/:id" component={Wnote} />
 						<GlobalStyle whiteColor />
