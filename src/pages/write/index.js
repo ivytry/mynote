@@ -13,7 +13,7 @@ class Write extends Component{
 	  for(var i=0; i<this.props.period.length; i++){
     	if(this.props.period[i] === value.format("YYYY/MM/DD")){
     		listData = [
-		        { type: 'error' }
+		        { type: 'error', content: 'fdsfa' }
 		    ]; 
 		    break;
     	}
@@ -27,7 +27,7 @@ class Write extends Component{
 	    <ul className="events">
 	      {
 	        listData.map((item, index) => (
-	            <Badge status={item.type} key={index} />
+	            <Badge status={item.type} key={index} title={item.content} />
 	        ))
 	      }
 	    </ul>
@@ -36,7 +36,6 @@ class Write extends Component{
 
 	render(){
 		const { day, handleSelect } = this.props
-		console.log(day)
 		return (
 			<LoginWrapper>
 				<LoginBox>
@@ -48,7 +47,7 @@ class Write extends Component{
 					<div>
 						<div className="calendar">
 							<span className="ant-select-selection today" onClick={() => { handleSelect(moment()) }}>今天</span>
-							<Calendar value={day ? day : moment()} fullscreen={false} onSelect={handleSelect} dateCellRender={this.dateCellRender.bind(this)} />
+							<Calendar fullscreen={false} onSelect={handleSelect} dateCellRender={this.dateCellRender.bind(this)} />
 						</div>
 						<EditableTable />
 					</div>

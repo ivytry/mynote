@@ -88,7 +88,7 @@ class Temperature extends Component {
 	render(){
 		const style = {width:'900px', height:'500px', padding:'15px'}
 		return (
-			<div style={style} ref='mydiv' ></div>
+			<div style={style} ref='mydiv'></div>
 		)
 	}
 
@@ -109,15 +109,10 @@ const mapState = (state) => ({
 	temperture: state.get("home").get("temperture")
 })
 
-const mapDispatch = (dispatch) => {
-	return {
-		handleGetInitData: () => {
-			dispatch(actionCreator.getInitHomeData())
-		},
-		handleBackTop: (e) => {
-			dispatch(actionCreator.showBackTopBtn((document.body.scrollTop > 400) ? true : false))
-		}
+const mapDispatch = (dispatch) => ({
+	handleGetInitData: () => {
+		dispatch(actionCreator.getInitHomeData())
 	}
-}
+})
 
 export default connect(mapState, mapDispatch)(Temperature)

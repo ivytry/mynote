@@ -7,7 +7,8 @@ const defaultState = fromJS({
 		"day": [],
 		"temperture": []
 	},
-	backTopShow:false
+	backTopShow:false,
+	data:[]
 })
 
 export default (state = defaultState, action) => {
@@ -18,6 +19,8 @@ export default (state = defaultState, action) => {
 			return state.set("backTopShow", action.backTopShow);
 		case actionType.CHANGE_SLIDETO:
 			return state.set("slideTo", action.slideTo);
+		case actionType.SET_INIT_DATA:
+			return state.set("data", action.data);
 		default:
 			return state;
 	}

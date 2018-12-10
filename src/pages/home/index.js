@@ -3,12 +3,26 @@ import { connect } from 'react-redux';
 import { actionCreator } from './store';
 import Temperature from './component/Temperature';
 import { HomeWrapper, BackTop, HomeFoot }from './style';
+import { Table } from 'antd';
+import { toJS } from 'immutable';
 
 class Home extends PureComponent{
 	render(){
+		const columns = [
+		  { title: '开始时间', dataIndex: 'stime', key: 'stime' },
+		  { title: '结束时间', dataIndex: 'etime', key: 'etime' },
+		  { title: '历时', dataIndex: 'days', key: 'days' }
+		];
 		return (
 			<HomeWrapper>
 				<Temperature />
+				<Table
+					style={{width: "880px", paddingLeft: "20px"}}
+				    columns={columns}
+				    expandedRowRender={ record => <ul style={{margin: 0}}>{ record.detail.map( (item, index) => <li key={index}><span style={{marginRight: '15px'}}>{item.day}</span><span>{item.description}</span></li>)}</ul> }
+				    dataSource={this.props.data.toJS()}
+				    pagination={this.props.data.toJS().length > 5 ? true : false}
+				/>
 				<HomeFoot>
 					<div className="main">
 						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/c/jppzD2">关于树懒</a><em> · </em>
@@ -39,6 +53,7 @@ class Home extends PureComponent{
 	}
 
 	componentDidMount(){
+		this.props.initData()
 		this.addEvents()
 	}
 	
@@ -48,15 +63,17 @@ class Home extends PureComponent{
 }
 
 const mapState = (state) => ({
-	backTopShow: state.get("home").get("backTopShow")
+	backTopShow: state.get("home").get("backTopShow"),
+	data: state.get("home").get("data")
 })
 
-const mapDispatch = (dispatch) => {
-	return {
-		handleBackTop: (e) => {
-			dispatch(actionCreator.showBackTopBtn((document.body.scrollTop > 400) ? true : false))
-		}
+const mapDispatch = (dispatch) => ({
+	initData: () => {
+		dispatch(actionCreator.getInitData())
+	},
+	handleBackTop: (e) => {
+		dispatch(actionCreator.showBackTopBtn((document.body.scrollTop > 400) ? true : false))
 	}
-}
+})
 
 export default connect(mapState, mapDispatch)(Home)
