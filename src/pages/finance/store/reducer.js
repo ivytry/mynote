@@ -3,7 +3,8 @@ import * as actionType from './actionType';
 const defaultState = {
 	finance: [],
 	editing: false,
-	loading: false
+	loading: false,
+	searchText: ''
 }
 
 const copyState = (state) =>{

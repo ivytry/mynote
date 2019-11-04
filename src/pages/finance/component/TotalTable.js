@@ -8,20 +8,20 @@ class TotalTable extends PureComponent {
   render() {
     const finance = [{
       key: '1',
-      title: '收入',
+      title: '总收入',
       total: 35000,
       tree: 25000,
       lan: 10000,
       tags: ['nice', 'developer'],
     }, {
       key: '2',
-      title: '支出',
+      title: '总支出',
       total: 15000,
       tree: 5000,
       lan: 10000
     }, {
       key: '3',
-      title: '结余',
+      title: '总结余',
       total: 20000,
       tree: 20000,
       lan: 0,
