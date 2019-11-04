@@ -119,6 +119,11 @@ class Revenue extends PureComponent {
           key:'zivMoney',
           editable: true
         },{
+          title: '备注',
+          dataIndex:'zivRemarks',
+          key:'zivRemarks',
+          editable: true
+        },{
           title: '日期',
           dataIndex:'zivDate',
           key:'zivDate',
@@ -136,6 +141,11 @@ class Revenue extends PureComponent {
           title: '金额',
           dataIndex:'ivyMoney',
           key:'ivyMoney',
+          editable: true
+        },{
+          title: '备注',
+          dataIndex:'ivyRemarks',
+          key:'ivyRemarks',
           editable: true
         },{
           title: '日期',

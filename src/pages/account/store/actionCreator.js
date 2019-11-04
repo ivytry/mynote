@@ -8,12 +8,7 @@ const getDayNote = (data) => ({
 
 export const getDayThings = () => {
 	return (dispatch) => {
-		var instance = axios.create({
-		  timeout: 1000,
-		  headers: {'Content-Type': 'application/json'}
-		});
-		instance.get("/account/_search").then((res) => {
-			console.log(res)
+		axios.get("/api/account.json").then((res) => {
 			var result = res.data.data;
 			dispatch(getDayNote(result))
 		}).catch((err) => {
