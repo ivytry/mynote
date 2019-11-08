@@ -6,6 +6,7 @@ sex：时间（开始时间/结束时间/时长）类型（AA/YY）
 
 
 
+<Button onClick={() => this.props.history.push("/charts")} icon="line-chart" style={{float:"right"}}></Button>
 
 ## react (props state ref)(生命周期函数：render)
 ## react developer tools / redux-devtools / charles

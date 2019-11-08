@@ -5,10 +5,10 @@ import { actionCreator } from '../store';
 require('antd/dist/antd.css');
 const { Column, ColumnGroup } = Table;
 
-class TotalTable extends PureComponent {
+class MonthTable extends PureComponent {
   render() {
     return (
-      <Table dataSource={this.props.allTotal} pagination={false}>
+      <Table dataSource={this.props.MonthTotal} pagination={false}>
         <ColumnGroup title="总">
           <Column
             title=""
@@ -50,18 +50,18 @@ class TotalTable extends PureComponent {
   }
 
   componentWillMount(){
-    this.props.initialAllTotal()
+    this.props.initMonthTotal()
   }
 }
 
 const mapState = (state) => ({
-    allTotal: state.get("finance").allTotal
+    monthTotal: state.get("finance").monthTotal
 })
 
 const mapDispatch = (dispatch) => ({
-  initialAllTotal: () => {
-    dispatch(actionCreator.getAllTotal())
+  initMonthTotal: () => {
+    dispatch(actionCreator.getMonthTotal())
   }
 })
 
-export default connect(mapState, mapDispatch)(TotalTable)
+export default connect(mapState, mapDispatch)(MonthTable)

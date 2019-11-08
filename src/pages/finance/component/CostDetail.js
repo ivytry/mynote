@@ -1,232 +1,115 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from '../store';
-import { Table, Input, Popconfirm, Form, TimePicker, Divider } from 'antd';
-import moment from 'moment';
+import { Button, Icon, Table, Input, Popconfirm, Form, TimePicker, Divider } from 'antd';
+import Highlighter from 'react-highlight-words';
 require('antd/dist/antd.css');
 
-const format = 'HH:mm';
-const FormItem = Form.Item;
-const EditableContext = React.createContext();
-
-const EditableRow = ({ form, index, ...props }) => (
-  <EditableContext.Provider value={form}>
-    <tr {...props} />
-  </EditableContext.Provider>
-);
-
-const EditableFormRow = Form.create()(EditableRow);
-
-class EditableCell extends PureComponent {
-
-  componentDidMount() {
-    if (this.props.editable) {
-      document.addEventListener('click', this.handleClickOutside, true);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.props.editable) {
-      document.removeEventListener('click', this.handleClickOutside, true);
-    }
-  }
-
-  toggleEdit = () => {
-    const editing = !this.state.editing;
-    this.setState({ editing }, () => {
-      if (editing) {
-        this.input.focus();
-      }
-    });
-  }
-
-  handleClickOutside = (e) => {
-    const { editing } = this.state;
-    if (editing && this.cell !== e.target && !this.cell.contains(e.target)) {
-      this.save();
-    }
-  }
-
-  save = () => {
-    const { record, handleSave } = this.props;
-    this.form.validateFields((error, values) => {
-      if (error) {
-        return;
-      }
-      this.toggleEdit();
-      handleSave({ ...record, ...values });
-    });
-  }
-
-  render() {
-    const {
-      editing,
-      dataIndex,
-      title,
-      record,
-      index,
-      ...restProps
-    } = this.props;
-
-    return (
-      <td ref={node => (this.cell = node)} {...restProps}>
-        {editing ? (
-          <EditableContext.Consumer>
-            {(form) => {
-              this.form = form;
-              return (
-                editing ? (
-                  <FormItem style={{ margin: 0 }}>
-                    {form.getFieldDecorator(dataIndex, {
-                      initialValue: record[dataIndex],
-                    })(
-                      <Input
-                        ref={node => (this.input = node)}
-                        onPressEnter={this.save}
-                      />
-                    )}
-                  </FormItem>
-                ) : (
-                  <div
-                    className="editable-cell-value-wrap"
-                    style={{ paddingRight: 24 }}
-                    onClick={this.toggleEdit}
-                  >
-                    {restProps.children}
-                  </div>
-                )
-              );
-            }}
-          </EditableContext.Consumer>
-        ) : restProps.children}
-      </td>
-    );
-  }
-}
-
-class Cost extends PureComponent {
+class Revenue extends PureComponent {
   constructor(props) {
     super(props);
-    this.columns = [
+    this.data = [
       {
-        title: '树',
-        children:[{
-          title: '项目',
-          dataIndex:'zivItem',
-          key:'zivItem'
-        },{
-          title: '金额',
-          dataIndex:'zivMoney',
-          key:'zivMoney'
-        },{
-          title: '日期',
-          dataIndex:'zivDate',
-          key:'zivDate'
-        }]
-      },
-      {
-        title: '懒',
-        children:[{
-          title: '项目',
-          dataIndex:'ivyItem',
-          key:'ivyItem'
-        },{
-          title: '金额',
-          dataIndex:'ivyMoney',
-          key:'ivyMoney'
-        },{
-          title: '日期',
-          dataIndex:'ivyDate',
-          key:'ivyDate'
-        }]
+        key: '1',
+        item: '现金红包',
+        name: 'ivy',
+        name1: '王爸爸',
+        money: '1000',
+        date:'2019-11-05'
       },
     ];
   }
 
-  isEditing = (record) => {
-    return record.key === this.props.editingKey;
-  };
-
-  handleSave = (row) => {
-    const newData = [...this.props.dataSource];
-    const index = newData.findIndex(item => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
+  getColumnSearchProps = dataIndex => ({
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+        <div style={{ padding: 8 }}>
+          <Input
+            ref={node => {
+              this.searchInput = node;
+            }}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+            onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
+            style={{ width: 188, marginBottom: 8, display: 'block' }}
+          />
+          <Button
+            type="primary"
+            onClick={() => this.handleSearch(selectedKeys, confirm)}
+            icon="search"
+            size="small"
+            style={{ width: 90, marginRight: 8 }}
+          >
+            Search
+          </Button>
+          <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+            Reset
+          </Button>
+        </div>
+      ),
+      filterIcon: filtered => (
+        <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
+      ),
+      onFilter: (value, record) =>
+        record[dataIndex]
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase()),
+      onFilterDropdownVisibleChange: visible => {
+        if (visible) {
+          setTimeout(() => this.searchInput.select());
+        }
+      },
+      render: text => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[this.props.searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
     });
-    this.setState({ dataSource: newData });
-  }
-
-  save(form, key) {
-    form.validateFields((error, row) => {
-      if (error) {
-        console.log(error)
-        return;
-      }
-      const newData = [...this.props.finance];
-      const index = newData.findIndex(item => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        this.props.setData(newData, '');
-      } else {
-        newData.push(row);
-        this.props.setData(newData, '');
-      }
-    });
-  }
 
   render() {
-    const components = {
-      body: {
-        row: EditableFormRow,
-        cell: EditableCell,
-      },
-    };
-
-    const columns = this.columns.map((col) => {
-      if (!col.editable) {
-        return col;
-      }
-      return {
-        ...col,
-        onCell: record => ({
-          record,
-          dataIndex: col.dataIndex,
-          title: col.title,
-          editing: this.isEditing(record),
-          handleSave: this.handleSave
-        }),
-      };
-    });
-    return (
-      <Table
-        components={components}
-        bordered
-        pagination={false}
-        dataSource={this.props.finance}
-        loading={this.props.loading}
-        columns={columns}
-        rowClassName="editable-row"
-      />
-    );
-  }
-
-  componentDidMount() {
-    var d = new Date()
-    this.props.initialData(d.toLocaleDateString())
-  }
+      const columns = [
+        {
+          title: '项目',
+          dataIndex: 'item',
+          key: 'item',
+          ...this.getColumnSearchProps('item'),
+        },
+        {
+          title: '金额',
+          dataIndex: 'money',
+          key: 'money',
+          ...this.getColumnSearchProps('money'),
+        },
+        {
+          title: '收款人',
+          dataIndex: 'name',
+          key: 'name',
+          ...this.getColumnSearchProps('name'),
+        },
+        {
+          title: '付款人',
+          dataIndex: 'name1',
+          key: 'name1',
+          ...this.getColumnSearchProps('name1'),
+        },
+        {
+          title: '日期',
+          dataIndex: 'date',
+          key: 'date',
+          ...this.getColumnSearchProps('date'),
+        },
+      ];
+      return <Table columns={columns} dataSource={this.data} />;
+    }
 }
 
 const mapState = (state) => {
   return {
-    finance: state.get("finance").finance.cost,
-    editingKey: state.get("finance").editingKey,
-    loading: state.get("finance").loading
+    searchText: state.get("finance").searchText
   }
 }
 
@@ -246,8 +129,16 @@ const mapDispatch = (dispatch) => {
         }
       })
       dispatch(actionCreator.handleSetData(d,k))
+    },
+    handleSearch: (selectedKeys, confirm) => {
+      confirm();
+      this.setState({ searchText: selectedKeys[0] });
+    },
+    handleReset: clearFilters => {
+      clearFilters();
+      this.setState({ searchText: '' });
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(Cost)
+export default connect(mapState, mapDispatch)(Revenue)
