@@ -59,9 +59,6 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-	handleSelect: (m) => {
-		dispatch(actionCreator.getDayThings(m))
-	},
     setChartVisible: (v) => {
 		dispatch(actionCreator.handleChartVisible(v))
     }

@@ -8,7 +8,7 @@ const { Column, ColumnGroup } = Table;
 class MonthTable extends PureComponent {
   render() {
     return (
-      <Table dataSource={this.props.MonthTotal} pagination={false}>
+      <Table dataSource={this.props.monthTotal} pagination={false}>
         <ColumnGroup title="总">
           <Column
             title=""

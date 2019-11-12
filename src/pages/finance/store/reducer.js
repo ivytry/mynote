@@ -40,7 +40,7 @@ export default (state = defaultState, action) => {
 			newState.monthTotal = action.monthTotal;
 			return newState;
 		case actionType.SET_YEARTOTAL:
-			newState.allTotal = action.allTotal;
+			newState.yearTotal = action.yearTotal;
 			return newState;
 		default:
 			return state;
