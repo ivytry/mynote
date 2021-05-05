@@ -1,4 +1,5 @@
 var express = require('express');
+<<<<<<< HEAD
 var path = require('path');
 //var favicon = require('serve-favicon');
 var router = require('./router/index.js');
@@ -34,11 +35,20 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+=======
+var db = require('./models/db.js');
+var app = express();
 
+app.get('/', function(req,res){
+    res.send("node启动成功")
+>>>>>>> 53075a93deef87f448b5e932dac951565c58faf3
 });
 
 app.listen(3000, () => {
     console.log('node服务器监听3000端口成功');
 })
+<<<<<<< HEAD
 
 //module.exports = app;
+=======
+>>>>>>> 53075a93deef87f448b5e932dac951565c58faf3

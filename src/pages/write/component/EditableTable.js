@@ -128,7 +128,7 @@ class EditableTable extends PureComponent {
                   this.props.daynote.length > 1
                   ? (
                     <Popconfirm title="确定要删除吗?" onConfirm={() => this.props.handleDelete(this.props.daynote, record.key)}>
-                      <a href="javascript:;">删除</a>
+                      <a href="#">删除</a>
                     </Popconfirm>
                   ) : null
                 }

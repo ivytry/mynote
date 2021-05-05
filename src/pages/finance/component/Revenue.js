@@ -206,9 +206,7 @@ class Revenue extends PureComponent {
     
     return (
       <div>
-        <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
-          Add a row
-        </Button>
+        <Button icon="edit" onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}></Button>
         <Table
           components={components}
           bordered
