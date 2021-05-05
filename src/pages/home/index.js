@@ -25,13 +25,13 @@ class Home extends PureComponent{
 				/>
 				<HomeFoot>
 					<div className="main">
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/c/jppzD2">关于树懒</a><em> · </em>
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/contact">联系我们</a><em> · </em>
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/c/bfeec2e13990">加入我们</a><em> · </em>
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/p/fc1c113e5b6b">树懒出版</a><em> · </em>
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/press">品牌与徽标</a><em> · </em>
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/faqs">帮助中心</a><em> · </em>
-						<a target="_blank" rel="noopener noreferrer" href="http://www.jianshu.com/p/cabc8fa39830">合作伙伴</a>      
+						<a target="_blank" rel="noopener noreferrer" href="http://www.shulan.com/c/jppzD2">关于树懒</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.shulan.com/contact">联系我们</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.shulan.com/c/bfeec2e13990">加入我们</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.shulan.com/p/fc1c113e5b6b">树懒出版</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.shulan.com/press">品牌与徽标</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.shulan.com/faqs">帮助中心</a><em> · </em>
+						<a target="_blank" rel="noopener noreferrer" href="http://www.shulan.com/p/cabc8fa39830">合作伙伴</a>      
 						<div className="icp">
 							<div>
 						        ©2018-2088 重庆树懒责任有限公司 / 树懒 / 渝ICP备1314520号-8     

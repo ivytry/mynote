@@ -14,7 +14,7 @@ class Temperature extends Component {
 
 		let option = {
 		    title: {
-		        text: '近一月基础体温变化趋势图',
+		        text: '近一月基础体温变化图',
 		        subtext: temperture.peired,
 		        textStyle:{
 		        	color: '#969696',
