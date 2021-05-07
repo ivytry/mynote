@@ -4,8 +4,8 @@ import * as actionType from './actionType';
 const defaultState = fromJS({
 	temperture:{
 		"peired":"",
-		"day": [],
-		"temperture": []
+		"temperture1": [[]],
+		"temperture2": [[]]
 	},
 	backTopShow:false,
 	data:[]
