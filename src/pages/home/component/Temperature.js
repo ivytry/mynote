@@ -11,6 +11,8 @@ class Temperature extends Component {
 		var temper = temperture;
 		var t = temper.temperture2;
 		var temperList = t?t.map(function (item) { return item[1] }):[0.1];
+		//var tdate = t?t.map(function (item) { return item[0] }):["2021/5/1"];
+		//console.log(tdate)
 
 		var max = Math.max.apply(null, temperList);
 		var min = Math.min.apply(null, temperList);
@@ -52,8 +54,20 @@ class Temperature extends Component {
 		        }
 		    },
 		    xAxis: {
-		        type: 'category',
+		        type: 'time',
 		        boundaryGap: false,
+		        //splitNumber: 10,
+		        minInterval: 1,
+		        maxInterval: 3600 * 24 * 1000 * 2,
+		        axisTick:{
+		        	//interval:0,
+		        	//lenth:10,
+		        	lineStyle:{
+		        		width:0.5,
+		        		color:'#eee'
+		        	} 
+		        },
+	            //data: tdate,
 		        axisLine:{
 		        	lineStyle:{
 		        		color:'#aaa'
@@ -73,6 +87,23 @@ class Temperature extends Component {
 		        min: min,
 		        max: max
 		    },
+		    //dataZoom: [
+		    //    {
+		    //        id: 'dataZoomX',
+		    //        type: 'slider',
+		    //        xAxisIndex: [0],
+		    //        filterMode: 'filter'
+		    //    },
+		    //    {
+		    //        id: 'dataZoomY',
+		    //        type: 'slider',
+		    //        yAxisIndex: [0],
+		    //        filterMode: 'empty'
+		    //    },
+		    //    {
+	        //    	startValue: '2021/5/1'
+		    //    }
+		    //],
 		    series: [
 		        {
 		        	name:'温度计1',
@@ -113,13 +144,13 @@ class Temperature extends Component {
 		           				itemStyle: {
 		           					color:'#1fad25'
 		           				}
-		                    },
-		                    {
-		                    	name: '爱爱',
-		                    	symbol:'path//M512 919.194002l-64.352657-58.361199C219.085764 653.353378 68.191078 516.438079 68.191078 348.900342c0-136.915299 107.180068-244.094344 244.094344-244.094344 77.222779 0 151.3388 35.948747 199.713554 92.53451 48.374754-56.585763 122.490775-92.53451 199.713554-92.53451 136.915299 0 244.094344 107.180068 244.094344 244.094344 0 167.537737-150.894685 304.453037-379.456265 511.933485L512 919.194002z',
-		                    	symbolSize:30,
-        						coord: ["2021/4/25", 37]
-		                    }
+		                    }//,
+		                    //{
+		                    //	name: '爱爱',
+		                    //	symbol:'path//M512 919.194002l-64.352657-58.361199C219.085764 653.353378 68.191078 516.438079 68.191078 348.900342c0-136.915299 107.180068-244.094344 244.094344-244.094344 77.222779 0 151.3388 35.948747 199.713554 92.53451 48.374754-56.585763 122.490775-92.53451 199.713554-92.53451 136.915299 0 244.094344 107.180068 244.094344 244.094344 0 167.537737-150.894685 304.453037-379.456265 511.933485L512 919.194002z',
+		                    //	symbolSize:30,
+        					//	coord: ["2021/4/25", 37]
+		                    //}
 		                ]
 		            },
             		markLine: {
@@ -132,7 +163,7 @@ class Temperature extends Component {
                     		name: '经期',
                     		xAxis: '2021/5/6'
                 		}, {
-                    		xAxis: '2021/5/11'
+                    		xAxis: '2021/5/10'
                 		}] ]
             		}
 		        },
