@@ -9,6 +9,7 @@ class Temperature extends Component {
 
 		var myChart = echarts.init(el);
 		var temper = temperture;
+		console.log(temperture)
 		var t = temper.temperture2;
 		var temperList = t?t.map(function (item) { return item[1] }):[0.1];
 		//var tdate = t?t.map(function (item) { return item[0] }):["2021/5/1"];
@@ -58,7 +59,7 @@ class Temperature extends Component {
 		        boundaryGap: false,
 		        //splitNumber: 10,
 		        minInterval: 1,
-		        maxInterval: 3600 * 24 * 1000 * 2,
+		        maxInterval: 3600 * 24 * 1000 * 3,
 		        axisTick:{
 		        	//interval:0,
 		        	//lenth:10,
@@ -106,7 +107,7 @@ class Temperature extends Component {
 		    //    }
 		    //],
 		    series: [
-		        {
+		        /*{
 		        	name:'温度计1',
 		            type:'line',
 		            color:"gray",
@@ -147,7 +148,7 @@ class Temperature extends Component {
 		                    }
 		                ]
 		            }
-		        },
+		        },*/
 		        {
 		        	name:'温度计2',
 		            type:'line',
@@ -157,19 +158,29 @@ class Temperature extends Component {
 		                    {
 		                    	name: '白带拉丝',
 		                    	symbol:'diamond',
-		                    	symbolSize:20,
+		                    	symbolSize:15,
 		                    	symbolOffset:[0,'-70%'],
         						coord: ["2021/4/19", 36.65],
 		           				itemStyle: {
-		           					color:'#1fad25'
+		           					color:'#FFA500'
 		           				}
 		                    },
 		                    {
 		                    	name: '白带拉丝',
 		                    	symbol:'diamond',
-		                    	symbolSize:20,
+		                    	symbolSize:15,
 		                    	symbolOffset:[0,'-70%'],
         						coord: ["2021/4/20", 36.75],
+		           				itemStyle: {
+		           					color:'#FFA500'
+		           				}
+		                    },
+		                    {
+		                    	name: '排卵？',
+		                    	symbol:'diamond',
+		                    	symbolSize:20,
+		                    	symbolOffset:[0,'-70%'],
+        						coord: ["2021/4/21", 36.85],
 		           				itemStyle: {
 		           					color:'#1fad25'
 		           				}

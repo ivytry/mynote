@@ -4,7 +4,7 @@ import * as actionType from './actionType';
 const defaultState = fromJS({
 	temperture:{
 		"peired":"",
-		"temperture1": [[]],
+		//"temperture1": [[]],
 		"temperture2": [[]]
 	},
 	backTopShow:false,
