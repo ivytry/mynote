@@ -59,7 +59,7 @@ class Temperature extends Component {
 		        boundaryGap: false,
 		        //splitNumber: 10,
 		        minInterval: 1,
-		        maxInterval: 3600 * 24 * 1000 * 3,
+		        maxInterval: 3600 * 24 * 1000 * 4,
 		        axisTick:{
 		        	//interval:0,
 		        	//lenth:10,
@@ -107,7 +107,7 @@ class Temperature extends Component {
 		    //    }
 		    //],
 		    series: [
-		        /*{
+		        {
 		        	name:'温度计1',
 		            type:'line',
 		            color:"gray",
@@ -148,7 +148,7 @@ class Temperature extends Component {
 		                    }
 		                ]
 		            }
-		        },*/
+		        },
 		        {
 		        	name:'温度计2',
 		            type:'line',
