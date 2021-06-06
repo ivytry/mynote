@@ -59,7 +59,7 @@ class Temperature extends Component {
 		        boundaryGap: false,
 		        //splitNumber: 10,
 		        minInterval: 1,
-		        maxInterval: 3600 * 24 * 1000 * 3,
+		        maxInterval: 3600 * 24 * 1000 * 4,
 		        axisTick:{
 		        	//interval:0,
 		        	//lenth:10,
@@ -107,7 +107,7 @@ class Temperature extends Component {
 		    //    }
 		    //],
 		    series: [
-		        /*{
+		        {
 		        	name:'温度计1',
 		            type:'line',
 		            color:"gray",
@@ -148,7 +148,7 @@ class Temperature extends Component {
 		                    }
 		                ]
 		            }
-		        },*/
+		        },
 		        {
 		        	name:'温度计2',
 		            type:'line',
@@ -171,6 +171,56 @@ class Temperature extends Component {
 		                    	symbolSize:15,
 		                    	symbolOffset:[0,'-70%'],
         						coord: ["2021/4/20", 36.75],
+		           				itemStyle: {
+		           					color:'#FFA500'
+		           				}
+		                    },
+		                    {
+		                    	name: '白带拉丝',
+		                    	symbol:'diamond',
+		                    	symbolSize:15,
+		                    	symbolOffset:[0,'-70%'],
+        						coord: ["2021/5/26", 36.50],
+		           				itemStyle: {
+		           					color:'#FFA500'
+		           				}
+		                    },
+		                    {
+		                    	name: '白带拉丝',
+		                    	symbol:'diamond',
+		                    	symbolSize:15,
+		                    	symbolOffset:[0,'-70%'],
+        						coord: ["2021/5/27", 36.45],
+		           				itemStyle: {
+		           					color:'#FFA500'
+		           				}
+		                    },
+		                    {
+		                    	name: '白带拉丝',
+		                    	symbol:'diamond',
+		                    	symbolSize:15,
+		                    	symbolOffset:[0,'-70%'],
+        						coord: ["2021/5/28", 36.40],
+		           				itemStyle: {
+		           					color:'#FFA500'
+		           				}
+		                    },
+		                    {
+		                    	name: '白带拉丝',
+		                    	symbol:'diamond',
+		                    	symbolSize:15,
+		                    	symbolOffset:[0,'-70%'],
+        						coord: ["2021/5/30", 36.50],
+		           				itemStyle: {
+		           					color:'#FFA500'
+		           				}
+		                    },
+		                    {
+		                    	name: '白带拉丝',
+		                    	symbol:'diamond',
+		                    	symbolSize:15,
+		                    	symbolOffset:[0,'-70%'],
+        						coord: ["2021/6/03", 36.55],
 		           				itemStyle: {
 		           					color:'#FFA500'
 		           				}

@@ -7,6 +7,7 @@ import Login from './pages/login';
 import Home from './pages/home';
 import Detail from './pages/detail/loadable';
 import Write from './pages/write';
+import Addt from './pages/add';
 import Diarys from './pages/diarys';
 import Notes from './pages/notes';
 import Finance from './pages/finance';
@@ -26,6 +27,7 @@ class App extends PureComponent {
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/reg" component={Reg} />
 						<Route exact path="/things" component={Write} />
+						<Route exact path="/add" component={Addt} />
 						<Route exact path="/wnote" component={Wnote} />
 						<Route exact path="/diarys" component={Diarys} />
 						<Route exact path="/notes" component={Notes} />
